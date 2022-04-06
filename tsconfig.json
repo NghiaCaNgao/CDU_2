@@ -1,0 +1,23 @@
+{
+    "compilerOptions": {
+        "resolveJsonModule": true,
+        "esModuleInterop": true,
+        "typeRoots": [
+            "./src/@types",
+            "./node_modules/@types"
+        ],
+        "baseUrl": ".",
+        "paths": {
+            "@/*": [
+                "./src/*"
+            ],
+        },
+        "jsx": "react",
+        "allowJs": false
+    },
+    "include": [
+        "./src/**/*",
+        "./test-utils/**/*",
+        "./__mocks__/**/*"
+    ]
+}

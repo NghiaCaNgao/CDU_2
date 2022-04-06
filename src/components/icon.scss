@@ -1,0 +1,22 @@
+.icon {
+  svg {
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+    path {
+      transition-property: all;
+      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+      transition-duration: 150ms;
+      stroke: rgb(115 129 177 / 1);
+      stroke-width: 2px;
+    }
+  }
+  &:hover {
+    svg {
+      path {
+        stroke: white;
+        stroke-width: 2.5px;
+      }
+    }
+  }
+}

@@ -1,25 +1,53 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
-  "icons": [
-    {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
-    },
-    {
-      "src": "logo192.png",
-      "type": "image/png",
-      "sizes": "192x192"
-    },
-    {
-      "src": "logo512.png",
-      "type": "image/png",
-      "sizes": "512x512"
-    }
+  "manifest_version": 3,
+  "name": "Countdown to Uni",
+  "short_name": "C2U",
+  "version": "2.0.0",
+  "author": "NghiaCaNgao",
+  "description": "Countdown to national exam",
+  "homepage_url": "https://github.com/NghiaCaNgao/auto-fill-cssk.yte360-extension",
+  "icons": {
+      "16": "assets/logo/logo_16.png",
+      "48": "assets/logo/logo_48.png",
+      "128": "assets/logo/logo_128.png"
+  },
+  "action": {
+      "default_icon": {
+          "16": "assets/logo/logo_16.png",
+          "24": "assets/logo/logo_24.png",
+          "32": "assets/logo/logo_32.png"
+      },
+      "default_title": "Manage your work"
+  },
+  "commands": {
+      "open_app": {
+          "suggested_key": {
+              "default": "Alt+L",
+              "mac": "Alt+L"
+          },
+          "description": "Open the app"
+      }
+  },
+  "background": {
+      "service_worker": "background.js",
+      "type": "module"
+  },
+  "content_scripts": [
+      {
+          "matches": [
+              "https://chamsocsuckhoe.yte360.com/"
+          ],
+          "css": [
+              "inject.css"
+          ],
+          "js": [
+              "inject.js"
+          ]
+      }
   ],
-  "start_url": ".",
-  "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "permissions": [
+      "notifications",
+      "contextMenus",
+      "storage"
+  ]
 }
