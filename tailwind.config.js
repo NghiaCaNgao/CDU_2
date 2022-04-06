@@ -4,8 +4,8 @@ module.exports = {
   ],
   theme: {
     fontFamily: {
-      'bold': ['"Lexend Deca"', 'Arial', 'sans-serif'],
-      'regular': ['Nunito', 'Arial', 'sans-serif'],
+      'lexend': ['"Lexend Deca"', 'Arial', 'sans-serif'],
+      'nunito': ['Nunito', 'Arial', 'sans-serif'],
     },
 
     extend: {

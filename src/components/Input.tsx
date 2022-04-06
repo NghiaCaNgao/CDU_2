@@ -26,9 +26,11 @@ interface IProps {
 }
 
 export default class Input extends React.Component<IProps, {}>{
-    parseTime(date: number): string {
+    formatDate(date: number): string {
         const d = new Date(date);
-        return `${d.getDate()}/${d.getMonth() + 1}/${d.getFullYear()}`;
+        return d.getFullYear() + '-' +
+            ((d.getMonth() + 1 > 9) ? d.getMonth() + 1 : '0' + (d.getMonth() + 1)) + '-' +
+            (d.getDate() > 9 ? d.getDate() : '0' + d.getDate());
     }
 
     renderText(): ReactNode {
@@ -37,14 +39,14 @@ export default class Input extends React.Component<IProps, {}>{
                 <input
                     id={this.props.id}
                     type={this.props.type}
-                    defaultValue={this.props.value}
+                    defaultValue={this.formatDate(Number(this.props.value))}
                     disabled={this.props.disabled}
                     onChange={this.props.onChange}
                 >
                 </input>
                 <div className={"input__fake flex items-center justify-between px-3 " + ((this.props.disabled) ? "" : "active")}>
-                    <span className={"font-normal font-bold " + ((this.props.disabled) ? "" : "active")}>
-                        {this.parseTime(Number(this.props.value))}
+                    <span className={"font-nunito font-semibold text-lg " + ((this.props.disabled) ? "" : "active")}>
+                        {(new Date(this.props.value).toLocaleDateString("vi"))}
                     </span>
                     <div>
                         {(this.props.type === InputType.Date)
@@ -73,7 +75,7 @@ export default class Input extends React.Component<IProps, {}>{
                         : null}
                 </select>
                 <div className={"input__fake flex items-center justify-between px-3 " + ((this.props.disabled) ? "" : "active")}>
-                    <span className={"font-normal font-bold " + ((this.props.disabled) ? "" : "active")}>
+                    <span className={"font-nunito font-semibold text-lg " + ((this.props.disabled) ? "" : "active")}>
                         {this.props.dataSet.filter(item => item.value === this.props.value)[0].label}
                     </span>
                     <div>
@@ -96,7 +98,7 @@ export default class Input extends React.Component<IProps, {}>{
                     onClick={this.props.onClick}>
                 </button>
                 <div className={"input__fake flex items-center justify-between px-3 " + ((this.props.disabled) ? "" : "active")}>
-                    <span className={"font-normal font-bold " + ((this.props.disabled) ? "" : "active")}>
+                    <span className={"font-nunito font-semibold text-lg " + ((this.props.disabled) ? "" : "active")}>
                         {(this.props.data)
                             ? this.props.data.label
                             : null}
@@ -128,7 +130,7 @@ export default class Input extends React.Component<IProps, {}>{
     render() {
         return (
             <div className="input flex justify-between items-center mx-3 my-4">
-                <div className="input__title font-semibold text-gray-500">{this.props.title}</div>
+                <div className="input__title font-semibold text-gray-500 text-lg">{this.props.title}</div>
                 {this.switchType()}
             </div>
         )

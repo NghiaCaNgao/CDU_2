@@ -5,49 +5,24 @@
   "version": "2.0.0",
   "author": "NghiaCaNgao",
   "description": "Countdown to national exam",
-  "homepage_url": "https://github.com/NghiaCaNgao/auto-fill-cssk.yte360-extension",
+  "homepage_url": "https://github.com/NghiaCaNgao/CDU_2",
   "icons": {
-      "16": "assets/logo/logo_16.png",
-      "48": "assets/logo/logo_48.png",
-      "128": "assets/logo/logo_128.png"
+    "16": "images/logo/16x.png",
+    "48": "images/logo/48x.png",
+    "128": "images/logo/128x.png"
   },
   "action": {
-      "default_icon": {
-          "16": "assets/logo/logo_16.png",
-          "24": "assets/logo/logo_24.png",
-          "32": "assets/logo/logo_32.png"
-      },
-      "default_title": "Manage your work"
-  },
-  "commands": {
-      "open_app": {
-          "suggested_key": {
-              "default": "Alt+L",
-              "mac": "Alt+L"
-          },
-          "description": "Open the app"
-      }
+    "default_icon": {
+      "16": "images/logo/16x.png",
+      "24": "images/logo/24x.png",
+      "32": "images/logo/32x.png"
+    },
+    "default_title": "Click to open",
+    "default_popup": "index.html"
   },
   "background": {
-      "service_worker": "background.js",
-      "type": "module"
+    "service_worker": "background.js",
+    "type": "module"
   },
-  "content_scripts": [
-      {
-          "matches": [
-              "https://chamsocsuckhoe.yte360.com/"
-          ],
-          "css": [
-              "inject.css"
-          ],
-          "js": [
-              "inject.js"
-          ]
-      }
-  ],
-  "permissions": [
-      "notifications",
-      "contextMenus",
-      "storage"
-  ]
+  "permissions": []
 }

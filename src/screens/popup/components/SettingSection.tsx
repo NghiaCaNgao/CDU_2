@@ -58,7 +58,7 @@ export default class SettingSection extends React.Component<{}, IState> {
 
     render() {
         return (
-            <div className="setting-section mt-14">
+            <div className="setting-section mt-10 font-nunito">
                 <Switcher
                     title="Float countdown"
                     checked={this.state.isFloatCountdown}
