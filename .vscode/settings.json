@@ -1,6 +1,10 @@
 {
     "cSpell.words": [
         "lexend",
-        "nunito"
+        "noti",
+        "NotiItem",
+        "nunito",
+        "showNoti",
+        "toggleNoti"
     ]
 }

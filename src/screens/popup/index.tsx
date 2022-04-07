@@ -9,11 +9,11 @@ import "./index.scss";
 export default class Popup extends React.Component {
     render() {
         return (
-            <div className="popup-app bg-violet-50 p-5">
+            <div className="popup-app bg-violet-50 p-3">
                 <HeaderPopup />
                 <CountdownCard />
                 <SettingSection />
-                <FooterPopup />
+                {/* <FooterPopup /> */}
             </div>
         );
     }

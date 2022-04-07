@@ -2,15 +2,21 @@ import React, { ReactNode } from "react";
 import { ReactComponent as IconDate } from "@/assets/icons/calendar.svg";
 import { ReactComponent as IconDropdown } from "@/assets/icons/chevrondown.svg";
 import { ReactComponent as IconLink } from "@/assets/icons/link.svg";
+import { ReactComponent as IconAttachment } from "@/assets/icons/attachment.svg";
 
 import "./input.scss";
 
-enum InputType { Text = "text", Select = "select", Date = "date", Button = "button" }
+enum InputType {
+    Text = "text",
+    Select = "select",
+    Date = "date",
+    Button = "button"
+}
 
 interface IProps {
     id?: string;
-    title: string;
-    value: string | number;
+    title?: string;
+    value?: string | number;
     type: InputType;
     disabled?: boolean;
     dataSet?: {
@@ -23,6 +29,7 @@ interface IProps {
     }
     onChange?: () => void;
     onClick?: () => void;
+    onChangeTextLink?: (url: string) => void;
 }
 
 export default class Input extends React.Component<IProps, {}>{
@@ -33,17 +40,37 @@ export default class Input extends React.Component<IProps, {}>{
             (d.getDate() > 9 ? d.getDate() : '0' + d.getDate());
     }
 
+    //Emit event when click on fake select
+    handleTextLinkChange(event: React.ChangeEvent<HTMLInputElement>) {
+        this.props.onChangeTextLink && this.props.onChangeTextLink(event.target.value as string);
+    }
+
     renderText(): ReactNode {
         return (
-            <div className="input__text">
+            <div className="input__text flex items-center px-3 active">
+                <input
+                    id={this.props.id}
+                    type={this.props.type}
+                    defaultValue={this.props.value}
+                    onChange={this.handleTextLinkChange.bind(this)}
+                ></input>
+                <div>
+                    <IconAttachment />
+                </div>
+            </div>
+        )
+    }
+
+    renderDate(): ReactNode {
+        return (
+            <div className="input__date">
                 <input
                     id={this.props.id}
                     type={this.props.type}
                     defaultValue={this.formatDate(Number(this.props.value))}
                     disabled={this.props.disabled}
                     onChange={this.props.onChange}
-                >
-                </input>
+                ></input>
                 <div className={"input__fake flex items-center justify-between px-3 " + ((this.props.disabled) ? "" : "active")}>
                     <span className={"font-nunito font-semibold text-lg " + ((this.props.disabled) ? "" : "active")}>
                         {(new Date(this.props.value).toLocaleDateString("vi"))}
@@ -55,8 +82,9 @@ export default class Input extends React.Component<IProps, {}>{
                     </div>
                 </div>
             </div>
-        )
+        );
     }
+
 
     renderSelect(): ReactNode {
         return (
@@ -98,7 +126,7 @@ export default class Input extends React.Component<IProps, {}>{
                     onClick={this.props.onClick}>
                 </button>
                 <div className={"input__fake flex items-center justify-between px-3 " + ((this.props.disabled) ? "" : "active")}>
-                    <span className={"font-nunito font-semibold text-lg " + ((this.props.disabled) ? "" : "active")}>
+                    <span className={"font-nunito font-semibold text-lg truncate " + ((this.props.disabled) ? "" : "active")}>
                         {(this.props.data)
                             ? this.props.data.label
                             : null}
@@ -115,8 +143,9 @@ export default class Input extends React.Component<IProps, {}>{
 
     switchType(): ReactNode {
         switch (this.props.type) {
-            case InputType.Text:
             case InputType.Date:
+                return this.renderDate();
+            case InputType.Text:
                 return this.renderText();
             case InputType.Select:
                 return this.renderSelect();
@@ -130,7 +159,7 @@ export default class Input extends React.Component<IProps, {}>{
     render() {
         return (
             <div className="input flex justify-between items-center mx-3 my-4">
-                <div className="input__title font-semibold text-gray-500 text-lg">{this.props.title}</div>
+                <div className="input__title font-semibold text-gray-500 text-lg truncate">{this.props.title}</div>
                 {this.switchType()}
             </div>
         )

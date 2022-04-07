@@ -1,14 +1,19 @@
-.input__text,
+.input__date,
 .input__select,
-.input__button {
+.input__button,
+.input__text {
   position: relative;
   height: 40px;
   width: 200px;
+}
 
-  input,
+.input__date,
+.input__select,
+.input__button {
+  input[type="date"],
   select,
   button,
-  input::-webkit-calendar-picker-indicator,
+  input[type="date"]::-webkit-calendar-picker-indicator,
   .input__fake {
     position: absolute;
     top: 0;
@@ -17,48 +22,52 @@
     height: 100%;
   }
 
-  input,
+  input[type="date"],
   select,
   button,
-  input::-webkit-calendar-picker-indicator {
+  input[type="date"]::-webkit-calendar-picker-indicator {
     opacity: 0;
     z-index: 2;
     cursor: pointer;
   }
+}
 
-  .input__fake {
-    background-color: #e3e3e3;
-    border-radius: 10px;
-    z-index: 1;
+.input__text,
+.input__fake {
+  input[type="text"] {
+    background-color: transparent;
+    height: 100%;
+    flex-shrink: 1;
+    width: 100%;
+    &:focus {
+      outline: none;
+    }
+  }
+
+  background-color: #e3e3e3;
+  border-radius: 10px;
+  z-index: 1;
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  span {
+    color: #b8b8b8;
     transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-    span {
-      color: #b8b8b8;
+  }
+  svg {
+    path {
+      stroke-width: 2px;
+      stroke: #b8b8b8;
       transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+  }
+  &.active {
+    background-color: #e5ddfb;
+    span {
+      color: #7381b1;
     }
     svg {
       path {
-        stroke-width: 2px;
-        stroke: #b8b8b8;
-        transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-      }
-    }
-    &.active {
-      background-color: #e5ddfb;
-      span {
-        color: #7381b1;
-      }
-      svg {
-        path {
-          stroke: #7381b1;
-        }
+        stroke: #7381b1;
       }
     }
   }
-}
-
-.input__text {
-}
-.input__select {
-}
-.input__button {
 }
