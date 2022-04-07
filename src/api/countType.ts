@@ -1,0 +1,1 @@
+export enum CountType { Day = '0', Month = '1', Year = '2', Hour = '3', Minute = '4', Second = '5', Week = '6' };

@@ -55,8 +55,7 @@ export default class SelectBackground extends React.Component<IProps, IState> {
     constructor(props: IProps) {
         super(props);
         this.state = {
-            // TODO: Change to false in production mode
-            isShowSelectPanel: true,
+            isShowSelectPanel: false,
         };
         this.ref = React.createRef();
     }

@@ -12,7 +12,6 @@ export default class HeaderPopup extends React.Component<{}, IState> {
     constructor(props: {}) {
         super(props);
         this.state = {
-            // TODO: fix this in production mode: turn to false
             showNoti: false,
         }
         this.ref = React.createRef();

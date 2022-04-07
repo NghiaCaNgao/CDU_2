@@ -8,10 +8,6 @@ interface IProps {
 }
 
 export default class ImageSelect extends React.Component<IProps, {}> {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         return (
             <div
@@ -19,7 +15,8 @@ export default class ImageSelect extends React.Component<IProps, {}> {
                     + ((this.props.selected) ? "border-2 border-violet-500 p-1" : "")}
                 onClick={this.props.onClick}>
                 <img src={this.props.imgSrc}
-                    className={"rounded-lg w-full h-full overflow-hidden saturate-150 transition-all cursor-pointer hover:shadow-lg "} />
+                    className={"rounded-lg w-full h-full overflow-hidden saturate-150 transition-all cursor-pointer hover:shadow-lg "}
+                    alt="preview background" />
             </div>
         );
     }
