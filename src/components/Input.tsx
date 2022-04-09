@@ -63,7 +63,7 @@ export default class Input extends React.Component<IProps, {}>{
 
     renderDate(): ReactNode {
         return (
-            <div className="input__date">
+            <div className="input__date transition-all">
                 <input
                     id={this.props.id}
                     type={this.props.type}

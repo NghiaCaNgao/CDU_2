@@ -1,11 +1,14 @@
 import React from "react";
+import { NotificationItem } from "@/api/def";
 import LinkIcon from "@/components/LinkIcon";
 import ButtonIcon from "@/components/ButtonIcon";
 import NotiItem from "./NotiItem";
 import { ReactComponent as BellIcon } from "@/assets/icons/bell.svg";
 import { ReactComponent as SettingsIcon } from "@/assets/icons/settings.svg";
+import { getNoti } from "@/api/getNoti";
 interface IState {
     showNoti: boolean;
+    notifications: NotificationItem[];
 }
 export default class HeaderPopup extends React.Component<{}, IState> {
     private ref: React.RefObject<HTMLDivElement>;
@@ -13,9 +16,9 @@ export default class HeaderPopup extends React.Component<{}, IState> {
         super(props);
         this.state = {
             showNoti: false,
+            notifications: []
         }
         this.ref = React.createRef();
-        this.handleClickOutside = this.handleClickOutside.bind(this);
     }
 
     toggleNoti() {
@@ -33,12 +36,13 @@ export default class HeaderPopup extends React.Component<{}, IState> {
         }
     }
 
-    componentDidMount() {
-        document.addEventListener("mousedown", this.handleClickOutside);
+    async componentDidMount() {
+        this.setState({notifications: await getNoti()})
+        document.addEventListener("mousedown", this.handleClickOutside.bind(this));
     }
 
     componentWillUnmount() {
-        document.removeEventListener("mousedown", this.handleClickOutside);
+        document.removeEventListener("mousedown", this.handleClickOutside.bind(this));
     }
 
     render() {

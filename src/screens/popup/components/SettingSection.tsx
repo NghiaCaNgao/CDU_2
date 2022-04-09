@@ -1,29 +1,13 @@
 import React from "react";
-import { CountType } from "@/api/countType";
+import { CountType, FieldType, Property } from "@/api/def";
 import Switcher from "@/components/Switcher";
 import Input, { InputType } from "@/components/Input";
 import SelectBackground, { BackgroundType } from "./SelectBackground";
-
-enum FieldType {
-    isFloatCountdown,
-    isSyncWithServer,
-    finishDate,
-    countBy,
-    background
-}
 
 const countTypeOptions = Object.keys(CountType).map(key => ({
     value: CountType[key],
     label: key
 }));
-
-interface Property {
-    isFloatCountdown: boolean;
-    isSyncWithServer: boolean;
-    finishDate: number;
-    countBy: CountType;
-    background: BackgroundType
-}
 
 interface IProps {
     data?: Property;
@@ -38,27 +22,29 @@ export default class SettingSection extends React.Component<IProps, {}> {
     render() {
         return (
             <div className="setting-section m-3 mt-10 font-nunito">
-                <Switcher
-                    title="Float countdown"
-                    checked={this.props.data.isFloatCountdown}
-                    onChange={this.handleChange.bind(this, FieldType.isFloatCountdown)} />
-                <Switcher
-                    title="Sync with server"
-                    checked={this.props.data.isSyncWithServer}
-                    onChange={this.handleChange.bind(this, FieldType.isSyncWithServer)} />
-                <Input
-                    title="Custom date"
-                    value={this.props.data.finishDate}
-                    type={InputType.Date}
-                    disabled={this.props.data.isSyncWithServer}
-                    onChange={this.handleChange.bind(this, FieldType.finishDate)} />
-                <Input
-                    title="Count by"
-                    value={this.props.data.countBy}
-                    type={InputType.Select}
-                    disabled={false}
-                    dataSet={countTypeOptions}
-                    onChange={this.handleChange.bind(this, FieldType.countBy)} />
+                <div className="relative z-10">
+                    <Switcher
+                        title="Float countdown"
+                        checked={this.props.data.isFloatCountdown}
+                        onChange={this.handleChange.bind(this, FieldType.isFloatCountdown)} />
+                    <Switcher
+                        title="Sync with server"
+                        checked={this.props.data.isSyncWithServer}
+                        onChange={this.handleChange.bind(this, FieldType.isSyncWithServer)} />
+                    <Input
+                        title="Custom date"
+                        value={this.props.data.finishDate}
+                        type={InputType.Date}
+                        disabled={this.props.data.isSyncWithServer}
+                        onChange={this.handleChange.bind(this, FieldType.finishDate)} />
+                    <Input
+                        title="Count by"
+                        value={this.props.data.countBy}
+                        type={InputType.Select}
+                        disabled={false}
+                        dataSet={countTypeOptions}
+                        onChange={this.handleChange.bind(this, FieldType.countBy)} />
+                </div>
                 <SelectBackground
                     background={this.props.data.background}
                     onChange={this.handleChange.bind(this, FieldType.background)} />
@@ -67,4 +53,4 @@ export default class SettingSection extends React.Component<IProps, {}> {
     }
 }
 
-export { FieldType, Property };
+export { FieldType };

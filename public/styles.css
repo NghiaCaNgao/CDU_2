@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@700;800;900&display=swap');
+
+#c2u-container {
+  min-width: 200px;
+  height: 90px;
+  padding: 10px;
+  border-radius: 20px;
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  overflow: hidden;
+  background-color: cadetblue;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 9999999;
+  box-shadow: 0 0 15px 10px #2e2e2e1a;
+}
+
+#c2u-container .c2u-text {
+    font-family: 'Lexend Deca', sans-serif;
+    font-weight: 900;
+    color: white;
+    font-size: 30pt;
+    user-select: none;
+}

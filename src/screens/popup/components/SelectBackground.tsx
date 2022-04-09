@@ -21,31 +21,32 @@ interface IProps {
 const BackgroundImageList = [
     {
         name: "Water",
-        url: "https://wallpapercave.com/wp/wp7291353.jpg",
+        url: chrome.runtime.getURL("/images/background/bg1.jpg"),
         id: "water"
     },
     {
         name: "Dark Sky",
-        url: "https://i.pinimg.com/originals/a7/f4/26/a7f4267372b13423aa8cbd691a0b279c.jpg",
+        url: chrome.runtime.getURL("/images/background/bg2.jpg"),
         id: "dark-sky"
     },
     {
         name: "Blue Mine",
-        url: "https://www.pixel4k.com/wp-content/uploads/2018/10/fox-forest-minimalism-artwork-4k_1540749137.jpg",
+        url: chrome.runtime.getURL("/images/background/bg3.jpg"),
         id: "blue-mine"
     },
     {
         name: "Hero",
-        url: "https://picstatio.com/large/ycv32b/nature-illustraion-wallpaper.jpg",
+        url: chrome.runtime.getURL("/images/background/bg4.jpg"),
         id: "hero"
     },
     {
         name: "Step",
-        url: "https://wallpaperaccess.com/full/2972945.png",
+        url: chrome.runtime.getURL("/images/background/bg5.jpg"),
         id: "step"
-    }, {
+    },
+    {
         name: "Gas",
-        url: "https://maxcdn.icons8.com/app/uploads/2019/06/digital-illustration-brian-edward-miller-8.jpg",
+        url: chrome.runtime.getURL("/images/background/bg6.jpg"),
         id: "gas"
     }
 ]
@@ -95,8 +96,8 @@ export default class SelectBackground extends React.Component<IProps, IState> {
 
     render() {
         return (
-            <div className={"select-background relative "} ref={this.ref}>
-                <div className={"relative z-50 transition-all " + (this.state.isShowSelectPanel ? "px-3" : "")}>
+            <div className={"select-background relative"} ref={this.ref}>
+                <div className={"relative z-50 " + (this.state.isShowSelectPanel ? "px-3" : "")}>
                     <Input
                         title="Background"
                         data={{
@@ -106,14 +107,14 @@ export default class SelectBackground extends React.Component<IProps, IState> {
                         type={InputType.Button}
                         onClick={this.toggleSelect.bind(this)} />
                 </div>
-                <div className={"bg-white rounded-2xl w-full p-3 absolute -bottom-3 left-0 shadow-2xl transition-all " + ((this.state.isShowSelectPanel) ? "opacity-100 z-10" : "opacity-0 z-0")}>
+                <div className={"bg-white rounded-2xl w-full p-3 absolute -bottom-3 left-0 shadow-2xl transition-all " + ((this.state.isShowSelectPanel) ? "opacity-100 z-10" : "opacity-0")}>
                     <div className="flex flex-wrap justify-center">
                         {BackgroundImageList.map(item =>
                         (<ImageSelect
                             key={item.id}
                             imgSrc={item.url}
                             onClick={this.handleClick.bind(this, item)}
-                            selected={this.props.background === item}
+                            selected={this.props.background.id === item.id}
                         />))}
                     </div>
                     <Input
