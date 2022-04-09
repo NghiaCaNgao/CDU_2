@@ -120,6 +120,7 @@ export default class SelectBackground extends React.Component<IProps, IState> {
                     <Input
                         type={InputType.Text}
                         title="Link to image"
+                        value={this.props.background.url}
                         onChangeTextLink={this.handleClickForLink.bind(this)} />
                     <div className="h-10"></div>
                 </div>

@@ -2,6 +2,7 @@ import React from "react";
 import { CountType, Property } from "@/api/def";
 import { getTime } from "@/api/getTime";
 import Configurations from "@/extensions/config";
+import {emitCountdownChanged} from "@/extensions/common";
 
 import HeaderPopup from "./components/HeaderPopup";
 import CountdownCard from "./components/CountdownCard";
@@ -34,21 +35,7 @@ export default class Popup extends React.Component<{}, Property> {
         await config.save();
 
         // Send message to every current tab
-        try {
-            chrome.tabs.query({}, (tabs) => {
-                console.log(tabs);
-                console.log(tabs.map((tab) => tab.url));
-
-
-                tabs.forEach((tab) => {
-                    chrome.tabs.sendMessage(tab.id, {
-                        type: "countdown-changed"
-                    });
-                });
-            });
-        } catch (e) {
-            console.log(e);
-        }
+        emitCountdownChanged();
     }
 
     async componentDidMount() {
@@ -86,7 +73,7 @@ export default class Popup extends React.Component<{}, Property> {
     render() {
         return (
             <div className="popup-app bg-violet-50 p-3">
-                <HeaderPopup/>
+                <HeaderPopup />
                 <CountdownCard
                     background={this.state.background}
                     countType={this.state.countBy}

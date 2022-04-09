@@ -1,6 +1,7 @@
 import Notification from "./notification";
 import Configurations from "./config";
-import { calcTime } from "@/api/calcTime";
+// import { calcTime } from "@/api/calcTime";
+import { emitCountdownChanged } from "./common";
 
 // const IndexPath = chrome.runtime.getURL("index.html");
 const HomePagePath = "https://github.com/NghiaCaNgao/CDU_2";
@@ -11,6 +12,31 @@ function createTab(url: string) {
         active: true,
         url: url
     });
+}
+
+// Create new context menu
+function createNormalContextMenu(id: string, title: string) {
+    chrome.contextMenus.create({
+        contexts: ["image"],
+        type: "normal",
+        documentUrlPatterns: ["<all_urls>"],
+        id: id,
+        title: title,
+    });
+}
+
+async function setBackground(url: string) {
+    const config = new Configurations();
+    await config.load();
+    let configData = config.get();
+    configData.background = {
+        id: "custom-user-background",
+        url: url,
+        name: "Custom Background"
+    }
+    config.set(configData);
+    await config.save();
+    emitCountdownChanged();
 }
 
 // calc time left
@@ -71,3 +97,17 @@ chrome.runtime.onInstalled.addListener(async details => {
             }
         });
 });
+
+// handle context menu click
+chrome.contextMenus.onClicked.addListener(async info => {
+    switch (info.menuItemId) {
+        case "set_background": {
+            setBackground(info.srcUrl);
+            break;
+        }
+    }
+});
+
+// Create context menu
+chrome.contextMenus.removeAll();
+createNormalContextMenu("set_background", "Set as background");

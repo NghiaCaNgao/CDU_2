@@ -37,7 +37,9 @@ export default class HeaderPopup extends React.Component<{}, IState> {
     }
 
     async componentDidMount() {
-        this.setState({notifications: await getNoti()})
+        console.log(await getNoti());
+
+        this.setState({ notifications: await getNoti() })
         document.addEventListener("mousedown", this.handleClickOutside.bind(this));
     }
 
@@ -56,10 +58,11 @@ export default class HeaderPopup extends React.Component<{}, IState> {
                     </div>
                 </div>
 
-                <div className={"notification bg-white rounded-2xl w-full p-3 absolute top-0 left-0 shadow-2xl transition-all " + ((this.state.showNoti) ? "opacity-100 z-10" : "opacity-0 z-0")}>
+                <div className={"notification bg-white rounded-2xl w-full p-3 absolute top-0 left-0 shadow-2xl transition-all " + ((this.state.showNoti) ? "opacity-100 z-40" : "opacity-0 z-0")}>
                     <div className="h-16"></div>
-                    <NotiItem title="Update 3.30" description="We come back" type="update" />
-                    <NotiItem title="Explore new world" description="See what you know" type="important" />
+                    {this.state.notifications.map((noti, index) => {
+                        return <NotiItem key={index} title={noti.title} type={noti.type} description={noti.description} />
+                    })}
                 </div>
             </div>
         );

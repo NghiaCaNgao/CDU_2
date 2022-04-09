@@ -1,6 +1,6 @@
 import axios from "axios";
 import { NotificationItem } from "./def"
-const Host = "https://raw.githubusercontent.com/NghiaCaNgao/CDU_2/main/data/data.json";
+const Host = "https://raw.githubusercontent.com/NghiaCaNgao/CDU_2/main/data/notification.json";
 
 async function getNoti2(): Promise<NotificationItem[]> {
     try {

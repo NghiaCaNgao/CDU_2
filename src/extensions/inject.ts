@@ -3,6 +3,7 @@ import { CountType, Property } from "@/api/def";
 import Configurations from "./config";
 
 var property: Property;
+var interval: any;
 
 // Make element draggable
 function dragElement(el: HTMLElement) {
@@ -40,11 +41,9 @@ function dragElement(el: HTMLElement) {
     }
 }
 
-function setUp(countBy: CountType, finishDate: number) {
-    console.log("running time update");
-
+function setUp() {
     const el = document.getElementById("c2u-text");
-    const timeString = calcTime(countBy, finishDate, " ");
+    const timeString = calcTime(property.countBy, property.finishDate, " ");
     if (el) {
         el.innerText = timeString;
     }
@@ -67,12 +66,11 @@ function updateTimeLeft() {
             intervalSpan = 1000;
             break;
     }
-    console.log("intervalSpan", intervalSpan);
-    window.setInterval(setUp.bind(null, property.countBy, property.finishDate), intervalSpan);
+    interval = window.setInterval(setUp, intervalSpan);
 }
 
 function removeUpdateTimeLeft() {
-    window.clearInterval(setUp.bind(null, property.countBy, property.finishDate));
+    window.clearInterval(interval);
 }
 
 // Render the countdown
@@ -99,24 +97,27 @@ async function init() {
         const timeString = calcTime(property.countBy, property.finishDate, " ");
         const backgroundURL = property.background.url;
         updateTimeLeft();
-        await render({ timeString, backgroundURL});
+        await render({ timeString, backgroundURL });
     }
 }
 
-chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
-    // Remove the countdown if it exists
-    document.getElementById("c2u-container")?.remove();
+chrome.runtime.onMessage.addListener(
+    function (request, sender, sendResponse) {
+        // Remove the countdown if it exists
+        document.getElementById("c2u-container")?.remove();
 
-    // Remove the update time left interval
-    removeUpdateTimeLeft();
+        // Remove the update time left interval
+        removeUpdateTimeLeft();
 
-    switch (request.type) {
-        case "countdown-changed":
-            await init();
-            break;
-        default:
-            break;
-    }
-});
+        switch (request.type) {
+            case "countdown-changed":
+                init();
+                break;
+            default:
+                break;
+        }
+
+        sendResponse({ data: request.type });
+    });
 
 init();
