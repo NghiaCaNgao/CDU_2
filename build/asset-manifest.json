@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/static/css/main.a76ba00e.css",
+    "main.js": "/static/js/main.90eb8039.js",
+    "background.js": "/background.js",
+    "background.css": "/static/css/background.2967a2fc.css",
+    "inject.js": "/inject.js",
+    "inject.css": "/static/css/inject.2967a2fc.css",
+    "static/media/settings.svg": "/static/media/settings.a190c657c18b01af6e6f02c888b57676.svg",
+    "index.html": "/index.html",
+    "static/media/attachment.svg": "/static/media/attachment.db656b2420a53efcf4352672657e466c.svg",
+    "static/media/calendar.svg": "/static/media/calendar.e73949f5bc367c9cf3f75aa3a7f7f158.svg",
+    "static/media/bell.svg": "/static/media/bell.4f5c16f74d7168953d828e28a2d2c319.svg",
+    "static/media/arrowcircleup.svg": "/static/media/arrowcircleup.cfe0765b9f92cf33470b5ba9db791539.svg",
+    "static/media/link.svg": "/static/media/link.b2443137aa92b8f0a909c5b9b3cb9a9a.svg",
+    "static/media/flag3.svg": "/static/media/flag3.f0d1536ec44a9d55bf0cbe76a2cf1ca8.svg",
+    "static/media/chevrondown.svg": "/static/media/chevrondown.7854b7e5b7c40053e9ee89191504aa80.svg"
+  },
+  "entrypoints": [
+    "static/css/main.a76ba00e.css",
+    "static/js/main.90eb8039.js"
+  ]
+}

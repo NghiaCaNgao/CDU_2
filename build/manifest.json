@@ -1,0 +1,60 @@
+{
+  "manifest_version": 3,
+  "name": "Countdown to Uni",
+  "short_name": "C2U",
+  "version": "2.0.2",
+  "author": "NghiaCaNgao",
+  "description": "Countdown to national exam",
+  "homepage_url": "https://github.com/NghiaCaNgao/CDU_2",
+  "icons": {
+    "16": "images/logo/16x.png",
+    "48": "images/logo/48x.png",
+    "128": "images/logo/128x.png"
+  },
+  "action": {
+    "default_icon": {
+      "16": "images/logo/16x.png",
+      "24": "images/logo/24x.png",
+      "32": "images/logo/32x.png"
+    },
+    "default_title": "Click to open",
+    "default_popup": "index.html"
+  },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "css": [
+        "styles.css"
+      ],
+      "js": [
+        "inject.js"
+      ]
+    }
+  ],
+  "permissions": [
+    "notifications",
+    "storage",
+    "tabs",
+    "contextMenus"
+  ],
+  "host_permissions": [
+    "https://raw.githubusercontent.com/*"
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "images/*"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
+    }
+  ],
+  "update_url": "https://raw.githubusercontent.com/NghiaCaNgao/CDU_2/main/data/update.xml"
+}
