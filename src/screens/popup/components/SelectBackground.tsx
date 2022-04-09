@@ -97,7 +97,7 @@ export default class SelectBackground extends React.Component<IProps, IState> {
     render() {
         return (
             <div className={"select-background relative"} ref={this.ref}>
-                <div className={"relative z-50 " + (this.state.isShowSelectPanel ? "px-3" : "")}>
+                <div className={"relative z-50 transition-all" + (this.state.isShowSelectPanel ? "px-3" : "")}>
                     <Input
                         title="Background"
                         data={{

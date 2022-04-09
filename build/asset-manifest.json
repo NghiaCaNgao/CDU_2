@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.a76ba00e.css",
-    "main.js": "/static/js/main.90eb8039.js",
+    "main.css": "/static/css/main.0abdeb77.css",
+    "main.js": "/static/js/main.c2e1e115.js",
     "background.js": "/background.js",
     "background.css": "/static/css/background.2967a2fc.css",
     "inject.js": "/inject.js",
@@ -17,7 +17,7 @@
     "static/media/chevrondown.svg": "/static/media/chevrondown.7854b7e5b7c40053e9ee89191504aa80.svg"
   },
   "entrypoints": [
-    "static/css/main.a76ba00e.css",
-    "static/js/main.90eb8039.js"
+    "static/css/main.0abdeb77.css",
+    "static/js/main.c2e1e115.js"
   ]
 }

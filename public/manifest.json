@@ -3,6 +3,7 @@
   "name": "Countdown to Uni",
   "short_name": "C2U",
   "version": "2.0.2",
+  "default_locale": "vi",
   "author": "NghiaCaNgao",
   "description": "Countdown to national exam",
   "homepage_url": "https://github.com/NghiaCaNgao/CDU_2",

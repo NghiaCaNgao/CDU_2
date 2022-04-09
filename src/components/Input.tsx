@@ -50,8 +50,8 @@ export default class Input extends React.Component<IProps, {}>{
             <div className="input__text flex items-center px-3 active">
                 <input
                     id={this.props.id}
-                    type={this.props.type}
-                    defaultValue={this.props.value}
+                    type="text"
+                    value={this.props.value}
                     onChange={this.handleTextLinkChange.bind(this)}
                 ></input>
                 <div>
@@ -125,7 +125,7 @@ export default class Input extends React.Component<IProps, {}>{
                     disabled={this.props.disabled}
                     onClick={this.props.onClick}>
                 </button>
-                <div className={"input__fake flex items-center justify-between px-3 " + ((this.props.disabled) ? "" : "active")}>
+                <div className={"input__fake flex items-center justify-between px-3 transition-all " + ((this.props.disabled) ? "" : "active")}>
                     <span className={"font-nunito font-semibold text-lg truncate " + ((this.props.disabled) ? "" : "active")}>
                         {(this.props.data)
                             ? this.props.data.label

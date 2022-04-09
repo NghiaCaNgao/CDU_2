@@ -13,6 +13,7 @@ module.exports = {
         'violet-pastel': '#7381B1',
       }
     },
+    
     plugins: [],
   }
 }
