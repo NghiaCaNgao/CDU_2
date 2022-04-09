@@ -2,6 +2,7 @@ import Notification from "./notification";
 import Configurations from "./config";
 // import { calcTime } from "@/api/calcTime";
 import { emitCountdownChanged } from "./common";
+import { getTime } from "@/api/getTime";
 
 // const IndexPath = chrome.runtime.getURL("index.html");
 const HomePagePath = "https://github.com/NghiaCaNgao/CDU_2";
@@ -39,6 +40,29 @@ async function setBackground(url: string) {
     emitCountdownChanged();
 }
 
+async function updateSyncTime() {
+    const config = new Configurations();
+    await config.load();
+    let configData = config.get();
+    configData.finishDate = await getTime();
+    config.set(configData);
+    await config.save();
+}
+
+function setAutoSync() {
+    chrome.alarms.create(
+        "auto sync",
+        {
+            periodInMinutes: 3 * 60,
+            when: Date.now() + 3 * 60 * 1000 // After install 3 minutes
+
+            // For check
+            // periodInMinutes: 1,
+            // when: Date.now() + 10 * 1000 // After install 1 minutes
+        },
+    );
+}
+
 // calc time left
 // async function calcTimeLeft(): Promise<string> {
 //     const config = new Configurations();
@@ -64,6 +88,7 @@ chrome.runtime.onInstalled.addListener(async details => {
     // Create new data for the first installation times
     if (details.reason === chrome.runtime.OnInstalledReason.INSTALL) {
         await Configurations.clear();
+        setAutoSync();
 
         // Create welcome notification for first time        
         await Notification.create(
@@ -111,3 +136,5 @@ chrome.contextMenus.onClicked.addListener(async info => {
 // Create context menu
 chrome.contextMenus.removeAll();
 createNormalContextMenu("set_background", "Set as background");
+
+chrome.alarms.onAlarm.addListener(updateSyncTime);
