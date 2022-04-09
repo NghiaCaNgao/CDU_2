@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Countdown to Uni",
   "short_name": "C2U",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "author": "NghiaCaNgao",
   "description": "Countdown to national exam",
   "homepage_url": "https://github.com/NghiaCaNgao/CDU_2",
@@ -55,5 +55,6 @@
         "<all_urls>"
       ]
     }
-  ]
+  ],
+  "update_url": "https://raw.githubusercontent.com/NghiaCaNgao/CDU_2/main/data/update.xml"
 }
