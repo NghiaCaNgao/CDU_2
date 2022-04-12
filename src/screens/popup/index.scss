@@ -9,11 +9,15 @@
 }
 
 .card-countdown {
+  cursor: pointer;
   .background {
     background-image: url("https://wallpaperaccess.com/full/1602601.jpg");
     background-size: cover;
     background-position: center;
     transition: all 0.5s ease;
+    h1 {
+      user-select: none;
+    }
   }
 }
 

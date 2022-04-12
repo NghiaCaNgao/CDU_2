@@ -1,7 +1,8 @@
 .input__date,
 .input__select,
 .input__button,
-.input__text {
+.input__text,
+.input__color {
   position: relative;
   height: 40px;
   width: 200px;
@@ -9,11 +10,13 @@
 
 .input__date,
 .input__select,
-.input__button {
+.input__button,
+.input__color {
   input[type="date"],
+  input[type="date"]::-webkit-calendar-picker-indicator,
+  input[type="color"],
   select,
   button,
-  input[type="date"]::-webkit-calendar-picker-indicator,
   .input__fake {
     position: absolute;
     top: 0;
@@ -23,9 +26,10 @@
   }
 
   input[type="date"],
+  input[type="date"]::-webkit-calendar-picker-indicator, 
+  input[type="color"],
   select,
-  button,
-  input[type="date"]::-webkit-calendar-picker-indicator {
+  button{
     opacity: 0;
     z-index: 2;
     cursor: pointer;

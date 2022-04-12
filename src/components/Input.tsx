@@ -3,6 +3,7 @@ import { ReactComponent as IconDate } from "@/assets/icons/calendar.svg";
 import { ReactComponent as IconDropdown } from "@/assets/icons/chevrondown.svg";
 import { ReactComponent as IconLink } from "@/assets/icons/link.svg";
 import { ReactComponent as IconAttachment } from "@/assets/icons/attachment.svg";
+import { ReactComponent as IconPin } from "@/assets/icons/pin2.svg";
 
 import "./input.scss";
 
@@ -10,7 +11,8 @@ enum InputType {
     Text = "text",
     Select = "select",
     Date = "date",
-    Button = "button"
+    Button = "button",
+    Color = "color",
 }
 
 interface IProps {
@@ -76,9 +78,7 @@ export default class Input extends React.Component<IProps, {}>{
                         {(new Date(this.props.value).toLocaleDateString("vi"))}
                     </span>
                     <div>
-                        {(this.props.type === InputType.Date)
-                            ? <IconDate />
-                            : null}
+                        <IconDate />
                     </div>
                 </div>
             </div>
@@ -141,6 +141,29 @@ export default class Input extends React.Component<IProps, {}>{
         )
     }
 
+    renderColor(): ReactNode {
+        return (
+            <div className="input__color transition-all">
+                <input
+                    id={this.props.id}
+                    type="color"
+                    defaultValue={this.props.value}
+                    disabled={this.props.disabled}
+                    onChange={this.props.onChange}
+                ></input>
+                <div className={"input__fake flex items-center justify-between px-3 " + ((this.props.disabled) ? "" : "active")}>
+                    <span className={"font-nunito font-semibold text-lg " + ((this.props.disabled) ? "" : "active")}>
+                        {(this.props.value)}
+                    </span>
+                    <div>
+                        <IconPin />
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+
     switchType(): ReactNode {
         switch (this.props.type) {
             case InputType.Date:
@@ -151,6 +174,8 @@ export default class Input extends React.Component<IProps, {}>{
                 return this.renderSelect();
             case InputType.Button:
                 return this.renderButton();
+            case InputType.Color:
+                return this.renderColor();
             default:
                 return;
         }

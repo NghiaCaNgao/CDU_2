@@ -6,7 +6,8 @@ export enum FieldType {
     isSyncWithServer,
     finishDate,
     countBy,
-    background
+    background,
+    textColor
 }
 
 export interface Property {
@@ -14,7 +15,8 @@ export interface Property {
     isSyncWithServer: boolean;
     finishDate: number;
     countBy: CountType;
-    background: BackgroundType
+    background: BackgroundType,
+    textColor: string
 }
 
 export interface NotificationItem {

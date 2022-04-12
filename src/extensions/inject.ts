@@ -74,35 +74,51 @@ function removeUpdateTimeLeft() {
 }
 
 // Render the countdown
-async function render({ timeString, backgroundURL }: { timeString: string, backgroundURL: string }) {
+async function render() {
+    const timeString = calcTime(property.countBy, property.finishDate, " ");
+    const backgroundURL = property.background.url;
+    const textColor = property.textColor;
     const body = document.querySelector("body");
     const container = document.createElement("div");
     container.id = "c2u-container";
     container.style.backgroundImage = `url(${backgroundURL})`;
+    container.style.color = textColor;
     container.innerHTML = `
         <div>
             <h1 class="c2u-text" id="c2u-text">${timeString}</h1>
         </div>
     `;
     dragElement(container);
+    console.log(container);
+    
     body.insertBefore(container, body.firstChild);
 }
 
-async function init() {
+//Add Google font style tag
+function addGoogleFontStyle() {
+    const head = document.getElementsByTagName("head")[0];
+    const style = document.createElement("style");
+    style.type = "text/css";
+    style.innerHTML = `
+    @import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@700;800;900&display=swap');`;
+    head.appendChild(style);
+}
+
+async function init() {    
     if (document.getElementById("c2u-app")) return;
     const config = new Configurations();
     await config.load();
     property = config.get();
     if (property.isFloatCountdown) {
-        const timeString = calcTime(property.countBy, property.finishDate, " ");
-        const backgroundURL = property.background.url;
         updateTimeLeft();
-        await render({ timeString, backgroundURL });
+        await render();
     }
 }
 
 chrome.runtime.onMessage.addListener(
     function (request, sender, sendResponse) {
+        console.log(request);
+        
         // Remove the countdown if it exists
         document.getElementById("c2u-container")?.remove();
 
@@ -120,4 +136,5 @@ chrome.runtime.onMessage.addListener(
         sendResponse({ data: request.type });
     });
 
+addGoogleFontStyle();
 init();

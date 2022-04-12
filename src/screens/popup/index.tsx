@@ -2,26 +2,33 @@ import React from "react";
 import { CountType, Property } from "@/api/def";
 import { getTime } from "@/api/getTime";
 import Configurations from "@/extensions/config";
-import {emitCountdownChanged} from "@/extensions/common";
+import { emitCountdownChanged } from "@/extensions/common";
+import { getDefaultAppData } from "@/api/common";
 
 import HeaderPopup from "./components/HeaderPopup";
 import CountdownCard from "./components/CountdownCard";
 // import FooterPopup from "./components/FooterPopup";
 import SettingSection, { FieldType } from "./components/SettingSection";
-import { BackgroundImageList, BackgroundType } from "./components/SelectBackground";
+import { BackgroundType } from "./components/SelectBackground";
 
 import "./index.scss";
 
 export default class Popup extends React.Component<{}, Property> {
     constructor(props: any) {
         super(props);
-        this.state = {
-            isFloatCountdown: true,
-            isSyncWithServer: true,
-            finishDate: (new Date()).getTime() + 365 * 24 * 60 * 60 * 1000,
-            countBy: CountType.Day,
-            background: BackgroundImageList[0]
-        };
+        this.state = getDefaultAppData();
+    }
+
+    async loadAppData() {
+        const config = new Configurations();
+        await config.load();
+        this.setState(config.get(), async () => {
+            if (this.state.isSyncWithServer) {
+                await this.updateFinishDate();
+            }
+        });
+        // Send message to every current tab
+        emitCountdownChanged();
     }
 
     async updateFinishDate(): Promise<void> {
@@ -39,13 +46,7 @@ export default class Popup extends React.Component<{}, Property> {
     }
 
     async componentDidMount() {
-        const config = new Configurations();
-        await config.load();
-        this.setState(config.get(), async () => {
-            if (this.state.isSyncWithServer) {
-                await this.updateFinishDate();
-            }
-        });
+        await this.loadAppData();
     }
 
     async handleChange(field: FieldType, event: React.ChangeEvent<HTMLInputElement> | BackgroundType) {
@@ -67,14 +68,18 @@ export default class Popup extends React.Component<{}, Property> {
             case FieldType.background:
                 this.setState({ background: event as BackgroundType }, this.saveConfig);
                 break;
+            case FieldType.textColor:
+                this.setState({ textColor: (event as React.ChangeEvent<HTMLInputElement>).target.value }, this.saveConfig);
         }
     }
 
     render() {
         return (
             <div className="popup-app bg-violet-50 p-3">
-                <HeaderPopup />
+                <HeaderPopup
+                    onChange={this.loadAppData.bind(this)} />
                 <CountdownCard
+                    textColor={this.state.textColor}
                     background={this.state.background}
                     countType={this.state.countBy}
                     finishDate={this.state.finishDate} />

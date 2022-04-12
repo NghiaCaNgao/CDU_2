@@ -21,7 +21,7 @@ export default class SettingSection extends React.Component<IProps, {}> {
 
     render() {
         return (
-            <div className="setting-section m-3 mt-10 font-nunito">
+            <div className="setting-section m-3 mt-5 font-nunito">
                 <div className="relative z-10">
                     <Switcher
                         title="Float countdown"
@@ -44,6 +44,12 @@ export default class SettingSection extends React.Component<IProps, {}> {
                         disabled={false}
                         dataSet={countTypeOptions}
                         onChange={this.handleChange.bind(this, FieldType.countBy)} />
+                    <Input 
+                        title= "Text color"
+                        value={this.props.data.textColor}
+                        type={InputType.Color}
+                        disabled={false}
+                        onChange={this.handleChange.bind(this, FieldType.textColor)} />
                 </div>
                 <SelectBackground
                     background={this.props.data.background}

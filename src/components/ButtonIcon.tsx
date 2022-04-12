@@ -13,7 +13,7 @@ export default class ButtonIcon extends React.Component<IProps, {}> {
             <button 
             id = {this.props.id}
             onClick={this.props.onClick} 
-            className="icon p-1 m-1 rounded-full w-10 h-10 flex items-center justify-center transition-all hover:bg-violet-300 hover:drop-shadow-lg">
+            className="icon p-1 rounded-full w-10 h-10 flex items-center justify-center transition-all hover:bg-violet-300 hover:drop-shadow-lg">
                 {this.props.icon}
             </button>
         );

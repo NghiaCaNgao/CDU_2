@@ -2,17 +2,11 @@ import Storage from "./storage";
 import { Property, CountType } from "@/api/def";
 import { getTime } from "@/api/getTime";
 import { BackgroundImageList } from "@/screens/popup/components/SelectBackground";
-
+import { getDefaultAppData } from "@/api/common";
 export default class Configurations {
     private data: Property;
     constructor() {
-        this.data = {
-            isFloatCountdown: false,
-            isSyncWithServer: false,
-            finishDate: Date.now(),
-            countBy: CountType.Day,
-            background: BackgroundImageList[0]
-        }
+        this.data = getDefaultAppData();
     }
 
     async load(): Promise<void> {
@@ -39,14 +33,9 @@ export default class Configurations {
     }
 
     async clear(key?: string): Promise<void> {
+        // TODO: Clear key in storage
         const finishDate = await getTime();
-        this.data = {
-            isFloatCountdown: true,
-            isSyncWithServer: true,
-            finishDate: finishDate,
-            countBy: CountType.Day,
-            background: BackgroundImageList[0]
-        }
+        this.data = getDefaultAppData(finishDate);
     }
 
     async save(): Promise<void> {
