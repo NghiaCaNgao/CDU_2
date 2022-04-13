@@ -1,6 +1,7 @@
 import { calcTime } from "@/api/calcTime";
 import { CountType, Property } from "@/api/def";
 import Configurations from "./config";
+import { EventType } from "./common"
 
 var property: Property;
 var interval: any;
@@ -48,6 +49,7 @@ function setUp() {
         el.innerText = timeString;
     }
 }
+
 // Set update time left interval
 function updateTimeLeft() {
     let intervalSpan: number = 0;
@@ -89,8 +91,6 @@ async function render() {
         </div>
     `;
     dragElement(container);
-    console.log(container);
-    
     body.insertBefore(container, body.firstChild);
 }
 
@@ -100,11 +100,16 @@ function addGoogleFontStyle() {
     const style = document.createElement("style");
     style.type = "text/css";
     style.innerHTML = `
-    @import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@700;800;900&display=swap');`;
+        @import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@700;800;900&display=swap');`;
     head.appendChild(style);
 }
 
-async function init() {    
+async function init() {
+    // Remove the countdown if it exists
+    document.getElementById("c2u-container")?.remove();
+    // Remove the update time left interval
+    removeUpdateTimeLeft();
+
     if (document.getElementById("c2u-app")) return;
     const config = new Configurations();
     await config.load();
@@ -115,25 +120,31 @@ async function init() {
     }
 }
 
+function changeTextColor(textColor: string): void {
+    // change global value
+    property.textColor = textColor;
+
+    // change the color of the countdown
+    const el = document.getElementById("c2u-container");
+    if (el && el.style.color) {
+        el.style.color = textColor;
+    }
+}
+
 chrome.runtime.onMessage.addListener(
-    function (request, sender, sendResponse) {
-        console.log(request);
-        
-        // Remove the countdown if it exists
-        document.getElementById("c2u-container")?.remove();
-
-        // Remove the update time left interval
-        removeUpdateTimeLeft();
-
-        switch (request.type) {
-            case "countdown-changed":
+    function (request: { eventType: EventType, property: Property }, sender, sendResponse) {
+        switch (request.eventType) {
+            case EventType.ALL:
                 init();
+                break;
+            case EventType.TEXT_COLOR:
+                changeTextColor(request.property.textColor);
                 break;
             default:
                 break;
         }
 
-        sendResponse({ data: request.type });
+        sendResponse({ data: request.property });
     });
 
 addGoogleFontStyle();

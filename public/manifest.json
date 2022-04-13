@@ -46,7 +46,8 @@
     "alarms"
   ],
   "host_permissions": [
-    "https://raw.githubusercontent.com/*"
+    "https://raw.githubusercontent.com/*",
+    "https://fonts.googleapis.com/*"
   ],
   "web_accessible_resources": [
     {

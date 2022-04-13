@@ -15,7 +15,6 @@
   align-items: center;
   cursor: pointer;
   z-index: 9999999;
-  /* box-shadow: 0 0 15px 10px #2e2e2e1a; */
   filter: drop-shadow(0 25px 25px rgb(0 0 0 / 0.15));
 }
 

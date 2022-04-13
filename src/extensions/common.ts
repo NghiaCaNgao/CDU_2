@@ -1,11 +1,17 @@
-export function emitCountdownChanged() {
+import { Property } from "@/api/def";
+export enum EventType {
+    TEXT_COLOR = "cg-color",
+    ALL = "cg-all"
+}
+
+export function emitCountdownChanged(eventType?: EventType, property?: Property) {
     chrome.tabs.query({ url: ["https://*/*", "http://*/*"] }, (tabs) => {
-        console.log(tabs);
         console.log(tabs.map((tab) => tab.url));
 
         tabs.forEach((tab) => {
             chrome.tabs.sendMessage(tab.id, {
-                type: "countdown-changed"
+                eventType: eventType || EventType.ALL,
+                property: property
             }, function (data: any) {
                 console.log("Send message to all tabs");
                 console.log(data);

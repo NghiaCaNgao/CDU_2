@@ -2,7 +2,7 @@ import React from "react";
 import { CountType, Property } from "@/api/def";
 import { getTime } from "@/api/getTime";
 import Configurations from "@/extensions/config";
-import { emitCountdownChanged } from "@/extensions/common";
+import { emitCountdownChanged, EventType } from "@/extensions/common";
 import { getDefaultAppData } from "@/api/common";
 
 import HeaderPopup from "./components/HeaderPopup";
@@ -19,7 +19,7 @@ export default class Popup extends React.Component<{}, Property> {
         this.state = getDefaultAppData();
     }
 
-    async loadAppData() {
+    async loadAppData(isEmitEvent = true) {
         const config = new Configurations();
         await config.load();
         this.setState(config.get(), async () => {
@@ -28,7 +28,7 @@ export default class Popup extends React.Component<{}, Property> {
             }
         });
         // Send message to every current tab
-        emitCountdownChanged();
+        if (isEmitEvent) emitCountdownChanged();
     }
 
     async updateFinishDate(): Promise<void> {
@@ -36,17 +36,19 @@ export default class Popup extends React.Component<{}, Property> {
         this.setState({ finishDate });
     }
 
-    async saveConfig(): Promise<void> {
+    async saveConfig(eventType?: EventType): Promise<void> {
+        console.log("saveConfig", eventType);
+        
         const config = new Configurations();
         config.set(this.state);
         await config.save();
 
         // Send message to every current tab
-        emitCountdownChanged();
+        emitCountdownChanged(eventType || EventType.ALL, this.state);
     }
 
     async componentDidMount() {
-        await this.loadAppData();
+        await this.loadAppData(false);
     }
 
     async handleChange(field: FieldType, event: React.ChangeEvent<HTMLInputElement> | BackgroundType) {
@@ -69,7 +71,9 @@ export default class Popup extends React.Component<{}, Property> {
                 this.setState({ background: event as BackgroundType }, this.saveConfig);
                 break;
             case FieldType.textColor:
-                this.setState({ textColor: (event as React.ChangeEvent<HTMLInputElement>).target.value }, this.saveConfig);
+                this.setState(
+                    { textColor: (event as React.ChangeEvent<HTMLInputElement>).target.value },
+                    this.saveConfig.bind(this, EventType.TEXT_COLOR));
         }
     }
 
