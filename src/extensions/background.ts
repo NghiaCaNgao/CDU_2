@@ -44,7 +44,7 @@ async function updateSyncTime() {
     const config = new Configurations();
     await config.load();
     let configData = config.get();
-    configData.finishDate = await getTime();
+    configData.finishDate = await getTime(configData.finishDate); // Update finish date
     config.set(configData);
     await config.save();
 }

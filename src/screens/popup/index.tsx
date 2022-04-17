@@ -24,21 +24,21 @@ export default class Popup extends React.Component<{}, Property> {
         await config.load();
         this.setState(config.get(), async () => {
             if (this.state.isSyncWithServer) {
-                await this.updateFinishDate();
+                await this.updateFinishDate(this.state.finishDate);
             }
         });
         // Send message to every current tab
         if (isEmitEvent) emitCountdownChanged();
     }
 
-    async updateFinishDate(): Promise<void> {
-        const finishDate = await getTime();
+    async updateFinishDate(_finishDate?: number): Promise<void> {
+        const finishDate = await getTime(_finishDate);
         this.setState({ finishDate });
     }
 
     async saveConfig(eventType?: EventType): Promise<void> {
         console.log("saveConfig", eventType);
-        
+
         const config = new Configurations();
         config.set(this.state);
         await config.save();
