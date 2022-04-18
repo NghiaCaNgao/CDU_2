@@ -9,7 +9,7 @@ import HeaderPopup from "./components/HeaderPopup";
 import CountdownCard from "./components/CountdownCard";
 // import FooterPopup from "./components/FooterPopup";
 import SettingSection, { FieldType } from "./components/SettingSection";
-import { BackgroundType } from "./components/SelectBackground";
+import { BackgroundType } from "@/api/def";
 
 import "./index.scss";
 
