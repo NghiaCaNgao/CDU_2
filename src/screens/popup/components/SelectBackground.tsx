@@ -1,5 +1,5 @@
 import React from "react";
-import {BackgroundType} from "@/api/def";
+import { BackgroundType } from "@/api/def";
 import Input, { InputType } from "@/components/Input";
 import ImageSelect from "@/components/ImageSelect";
 
@@ -124,4 +124,4 @@ export default class SelectBackground extends React.Component<IProps, IState> {
     }
 }
 
-export { BackgroundType, BackgroundImageList };
+export { BackgroundImageList };

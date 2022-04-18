@@ -1,11 +1,13 @@
 import Configurations from "@/extensions/config";
 import React from "react";
 import InfoButton from "../components/InfoButton";
+import { emitChangeFromInject, EventType } from "@/extensions/common";
+import { getTime } from "@/api/getTime";
 
 const yearBorn = [
-    { id: "yb-2004", title: "2k4", description: "2021-2022" },
-    { id: "yb-2005", title: "2k5", description: "2022-2023" },
-    { id: "yb-2006", title: "2k6", description: "2023-2024" }
+    { id: "yb-2k4", title: "2k4", description: "2021-2022" },
+    { id: "yb-2k5", title: "2k5", description: "2022-2023" },
+    { id: "yb-2k6", title: "2k6", description: "2023-2024" }
 ]
 
 interface IState {
@@ -16,7 +18,7 @@ export default class FinishPage extends React.Component<{}, IState> {
     constructor(props: any) {
         super(props);
         this.state = {
-            yearBornID: "yb-2004"
+            yearBornID: "yb-2k4"
         }
     }
 
@@ -24,7 +26,9 @@ export default class FinishPage extends React.Component<{}, IState> {
         const config = new Configurations();
         await config.load();
         config.setByKey("yearBornID", yearBornID);
-        config.save();
+        config.setByKey("finishDate", await getTime(config.get()));
+        await config.save();
+        emitChangeFromInject(EventType.ALL);
         this.setState({ yearBornID });
     }
 

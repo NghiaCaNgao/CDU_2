@@ -18,4 +18,9 @@ export function emitCountdownChanged(eventType?: EventType, property?: Property)
             });
         });
     });
+    chrome.runtime.sendMessage({ eventType: eventType || EventType.ALL });
+}
+
+export function emitChangeFromInject(eventType: EventType) {
+    chrome.runtime.sendMessage({ eventType: eventType });
 }

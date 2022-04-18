@@ -21,8 +21,10 @@ export async function getTime(prevAttr?: Property): Promise<number> {
     });
     const data: ResponseData = await res.json();
     if (data) {
-        if (prevAttr && prevAttr.yearBornID)
-            return data.events.find(e => e.id === prevAttr.yearBornID).end_time || data.end_time;
+        if (prevAttr && prevAttr.yearBornID) {
+            const event = data.events.find(e => e.id === prevAttr.yearBornID);
+            return (event) ? event.end_time : data.end_time;
+        }
         return data.end_time;
     }
     else if (prevAttr && prevAttr.finishDate) return prevAttr.finishDate;

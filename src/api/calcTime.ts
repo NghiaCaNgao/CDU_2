@@ -4,7 +4,7 @@ export function calcTime(format: CountType, endTime: number, delimiter: string =
     const now = new Date();
     const time = endTime - now.getTime();
 
-    if (time < 0) return "Time up";
+    if (time < 0) return "Done";
 
     const formatNumber = new Intl.NumberFormat();
     switch (format) {

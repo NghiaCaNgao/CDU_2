@@ -9,6 +9,6 @@ export function getDefaultAppData(finishDate?: number): Property {
         countBy: "0",
         background: BackgroundImageList[0],
         textColor: "#ffffff",
-        yearBornID: "yb-2004"
+        yearBornID: "yb-2k4"
     } as Property
 }

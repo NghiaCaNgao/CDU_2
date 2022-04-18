@@ -1,6 +1,6 @@
 import React from "react";
 import { CountType } from "@/api/def";
-import { BackgroundType } from "./SelectBackground";
+import { BackgroundType } from "@/api/def";
 import { calcTime } from "@/api/calcTime";
 import "../index.scss";
 

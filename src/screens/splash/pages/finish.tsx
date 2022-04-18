@@ -9,7 +9,7 @@ export default class FinishPage extends React.Component {
                     <p className="font-lexend mt-5 text-gray-500 text-center">Congratulation! You have finished setup</p>
                 </div>
                 <img src="./images/items/happy.png" alt="deco" />
-                <a href="/#/splash"
+                <a href="#/splash"
                     className="text-center text-gray-500 font-lexend underline cursor-pointer hover:text-blue-500">Back to previous</a>
             </div>
         )
