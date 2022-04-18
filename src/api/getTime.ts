@@ -22,11 +22,7 @@ export async function getTime(prevTime?: number): Promise<number> {
     return axios.get(Host)
         .then(res => {
             const data: ResponseData = res.data;
-<<<<<<< HEAD
             // console.log(data);
-=======
-            console.log(data);
->>>>>>> main
             return data.end_time;
         })
         .catch(async (err) => {
