@@ -1,3 +1,4 @@
+import Configurations from "@/extensions/config";
 import React from "react";
 import InfoButton from "../components/InfoButton";
 
@@ -19,9 +20,19 @@ export default class FinishPage extends React.Component<{}, IState> {
         }
     }
 
-    handleChangeInfoButton(yearBornID: string) {
-        console.log("handleChangeInfoButton");
+    async handleChangeInfoButton(yearBornID: string) {
+        const config = new Configurations();
+        await config.load();
+        config.setByKey("yearBornID", yearBornID);
+        config.save();
         this.setState({ yearBornID });
+    }
+
+    async componentDidMount(): Promise<void> {
+        const config = new Configurations();
+        await config.load();
+        const t = config.get();
+        this.setState({ yearBornID: t.yearBornID });
     }
 
     render() {

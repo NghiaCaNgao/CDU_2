@@ -25,6 +25,9 @@ export default class Configurations {
     set(data: Property) {
         this.data = data;
     }
+    setByKey(key: string, value: any) {
+        this.data[key] = value;
+    }
 
     async resetData() {
         await this.clear();
