@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.4aab1f9d.css",
-    "main.js": "/static/js/main.148e6bb9.js",
+    "main.js": "/static/js/main.c716188c.js",
     "background.js": "/background.js",
     "background.css": "/static/css/background.90fa9396.css",
     "inject.js": "/inject.js",
@@ -20,6 +20,6 @@
   },
   "entrypoints": [
     "static/css/main.4aab1f9d.css",
-    "static/js/main.148e6bb9.js"
+    "static/js/main.c716188c.js"
   ]
 }
