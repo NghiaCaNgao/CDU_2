@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.4aab1f9d.css",
-    "main.js": "/static/js/main.c716188c.js",
+    "main.css": "/static/css/main.ff6a8355.css",
+    "main.js": "/static/js/main.f4b76cc2.js",
     "background.js": "/background.js",
     "background.css": "/static/css/background.90fa9396.css",
     "inject.js": "/inject.js",
@@ -15,11 +15,12 @@
     "static/media/arrowcircleup.svg": "/static/media/arrowcircleup.cfe0765b9f92cf33470b5ba9db791539.svg",
     "static/media/link.svg": "/static/media/link.b2443137aa92b8f0a909c5b9b3cb9a9a.svg",
     "static/media/pin2.svg": "/static/media/pin2.6ce288448350c7f2c0347fcac7f75cb8.svg",
+    "static/media/checkcircle.svg": "/static/media/checkcircle.1ce0a14021c0f630306b9c81f21726fd.svg",
     "static/media/flag3.svg": "/static/media/flag3.f0d1536ec44a9d55bf0cbe76a2cf1ca8.svg",
     "static/media/chevrondown.svg": "/static/media/chevrondown.7854b7e5b7c40053e9ee89191504aa80.svg"
   },
   "entrypoints": [
-    "static/css/main.4aab1f9d.css",
-    "static/js/main.c716188c.js"
+    "static/css/main.ff6a8355.css",
+    "static/js/main.f4b76cc2.js"
   ]
 }

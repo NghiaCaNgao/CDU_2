@@ -1,7 +1,7 @@
 import { calcTime } from "@/api/calcTime";
 import { CountType, Property } from "@/api/def";
 import Configurations from "./config";
-import { EventType } from "./common"
+import { EventEmitType } from "./common"
 
 var property: Property;
 var interval: any;
@@ -132,12 +132,12 @@ function changeTextColor(textColor: string): void {
 }
 
 chrome.runtime.onMessage.addListener(
-    function (request: { eventType: EventType, property: Property }, sender, sendResponse) {
-        switch (request.eventType) {
-            case EventType.ALL:
+    function (request: { eventEmitType: EventEmitType, property: Property }, sender, sendResponse) {
+        switch (request.eventEmitType) {
+            case EventEmitType.ALL:
                 init();
                 break;
-            case EventType.TEXT_COLOR:
+            case EventEmitType.TEXT_COLOR:
                 changeTextColor(request.property.textColor);
                 break;
             default:

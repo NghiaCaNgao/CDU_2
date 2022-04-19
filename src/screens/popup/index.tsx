@@ -2,14 +2,14 @@ import React from "react";
 import { CountType, Property } from "@/api/def";
 import { getTime } from "@/api/getTime";
 import Configurations from "@/extensions/config";
-import { emitCountdownChanged, EventType } from "@/extensions/common";
+import { emitCountdownChanged, EventEmitType } from "@/extensions/common";
 import { getDefaultAppData } from "@/api/common";
 
 import HeaderPopup from "./components/HeaderPopup";
 import CountdownCard from "./components/CountdownCard";
 // import FooterPopup from "./components/FooterPopup";
 import SettingSection, { FieldType } from "./components/SettingSection";
-import { BackgroundType } from "./components/SelectBackground";
+import { BackgroundType } from "@/api/def";
 
 import "./index.scss";
 
@@ -24,27 +24,25 @@ export default class Popup extends React.Component<{}, Property> {
         await config.load();
         this.setState(config.get(), async () => {
             if (this.state.isSyncWithServer) {
-                await this.updateFinishDate(this.state.finishDate);
+                await this.updateFinishDate();
             }
         });
         // Send message to every current tab
         if (isEmitEvent) emitCountdownChanged();
     }
 
-    async updateFinishDate(_finishDate?: number): Promise<void> {
-        const finishDate = await getTime(_finishDate);
+    async updateFinishDate(): Promise<void> {
+        const finishDate = await getTime(this.state);
         this.setState({ finishDate });
     }
 
-    async saveConfig(eventType?: EventType): Promise<void> {
-        console.log("saveConfig", eventType);
-
+    async saveConfig(eventEmitType?: EventEmitType): Promise<void> {
         const config = new Configurations();
         config.set(this.state);
         await config.save();
 
         // Send message to every current tab
-        emitCountdownChanged(eventType || EventType.ALL, this.state);
+        emitCountdownChanged(eventEmitType || EventEmitType.ALL, this.state);
     }
 
     async componentDidMount() {
@@ -73,7 +71,7 @@ export default class Popup extends React.Component<{}, Property> {
             case FieldType.textColor:
                 this.setState(
                     { textColor: (event as React.ChangeEvent<HTMLInputElement>).target.value },
-                    this.saveConfig.bind(this, EventType.TEXT_COLOR));
+                    this.saveConfig.bind(this, EventEmitType.TEXT_COLOR));
         }
     }
 

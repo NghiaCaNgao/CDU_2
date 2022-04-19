@@ -1,7 +1,6 @@
 import Storage from "./storage";
-import { Property, CountType } from "@/api/def";
+import { Property } from "@/api/def";
 import { getTime } from "@/api/getTime";
-import { BackgroundImageList } from "@/screens/popup/components/SelectBackground";
 import { getDefaultAppData } from "@/api/common";
 export default class Configurations {
     private data: Property;
@@ -25,6 +24,9 @@ export default class Configurations {
 
     set(data: Property) {
         this.data = data;
+    }
+    setByKey(key: string, value: any) {
+        this.data[key] = value;
     }
 
     async resetData() {

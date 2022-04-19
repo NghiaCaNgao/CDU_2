@@ -7,3 +7,7 @@ A tool helps you countdown to the national high school exam. You (a student who 
 ### 2.0.3
 - Thay đổi màu chữ
 - Bổ sung Nút reset mặc định
+### 2.0.4
+- Fix lỗi đồng bộ khi không có internet
+- Thêm splash screen
+- Thêm badge countdown

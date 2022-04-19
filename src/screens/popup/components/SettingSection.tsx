@@ -2,7 +2,8 @@ import React from "react";
 import { CountType, FieldType, Property } from "@/api/def";
 import Switcher from "@/components/Switcher";
 import Input, { InputType } from "@/components/Input";
-import SelectBackground, { BackgroundType } from "./SelectBackground";
+import SelectBackground from "./SelectBackground";
+import { BackgroundType } from "@/api/def";
 
 const countTypeOptions = Object.keys(CountType).map(key => ({
     value: CountType[key],

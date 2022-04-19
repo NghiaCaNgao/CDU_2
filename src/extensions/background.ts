@@ -1,11 +1,14 @@
 import Notification from "./notification";
 import Configurations from "./config";
-// import { calcTime } from "@/api/calcTime";
+import { CountType } from "@/api/def";
+import { EventEmitType } from "./common";
+import { calcTime } from "@/api/calcTime";
 import { emitCountdownChanged } from "./common";
 import { getTime } from "@/api/getTime";
 
 // const IndexPath = chrome.runtime.getURL("index.html");
 const HomePagePath = "https://github.com/NghiaCaNgao/CDU_2";
+const SplashPagePath = "index.html#/splash";
 
 // Create new tab with given url
 function createTab(url: string) {
@@ -44,7 +47,7 @@ async function updateSyncTime() {
     const config = new Configurations();
     await config.load();
     let configData = config.get();
-    configData.finishDate = await getTime(configData.finishDate); // Update finish date
+    configData.finishDate = await getTime(configData); // Update finish date
     config.set(configData);
     await config.save();
 }
@@ -53,7 +56,7 @@ function setAutoSync() {
     chrome.alarms.create(
         "auto sync",
         {
-            periodInMinutes: 3 * 60,
+            periodInMinutes: 3 * 60, // 3 hours
             when: Date.now() + 3 * 60 * 1000 // After install 3 minutes
 
             // For check
@@ -63,25 +66,33 @@ function setAutoSync() {
     );
 }
 
+function setAutoShowBadge() {
+    chrome.alarms.create(
+        "auto show badge",
+        {
+            periodInMinutes: 1, // 1 minutes
+            when: Date.now() // Right now
+        },
+    );
+}
+
 // calc time left
-// async function calcTimeLeft(): Promise<string> {
-//     const config = new Configurations();
-//     await config.load();
-//     const { finishDate, countBy } = config.get();
+async function calcTimeLeft(): Promise<string> {
+    const config = new Configurations();
+    await config.load();
+    let { finishDate, countBy } = config.get();
+    if (countBy == CountType.Second ||
+        countBy == CountType.Minute ||
+        countBy == CountType.Hour) {
+        countBy = CountType.Day;
+    }
 
-//     const now = Date.now();
-//     const timeLeft = finishDate - now;
-
-//     if (timeLeft <= 0) {
-//         return "done";
-//     } else {
-//         const stringBadge = calcTime(countBy, timeLeft);
-//         if (stringBadge.length > 4)
-//             return "99+";
-//         else
-//             return stringBadge;
-//     }
-// }
+    const stringBadge = calcTime(countBy, finishDate, " ");
+    if (stringBadge.length > 4)
+        return "99+";
+    else
+        return stringBadge;
+}
 
 chrome.runtime.onInstalled.addListener(async details => {
     await Notification.clear()
@@ -89,6 +100,8 @@ chrome.runtime.onInstalled.addListener(async details => {
     if (details.reason === chrome.runtime.OnInstalledReason.INSTALL) {
         await Configurations.clear();
         setAutoSync();
+        setAutoShowBadge();
+        createTab(SplashPagePath);
 
         // Create welcome notification for first time        
         await Notification.create(
@@ -103,6 +116,7 @@ chrome.runtime.onInstalled.addListener(async details => {
 
     // Show notification after updating
     else if (details.reason === chrome.runtime.OnInstalledReason.UPDATE) {
+        setAutoShowBadge();
         await Notification.create(
             "c2u_update",
             {
@@ -133,8 +147,28 @@ chrome.contextMenus.onClicked.addListener(async info => {
     }
 });
 
+// Handle alarm
+chrome.alarms.onAlarm.addListener((alarms) => {
+    if (alarms.name === "auto sync") {
+        updateSyncTime();
+    }
+    else if (alarms.name === "auto show badge") {
+        calcTimeLeft().then(timeLeft => {
+            chrome.action.setBadgeText({ text: timeLeft });
+        });
+    }
+});
+
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+    if (request.eventEmitType === EventEmitType.ALL) {
+        sendResponse({ message: "Hello" });
+        calcTimeLeft().then(timeLeft => {
+            console.log(timeLeft);
+            chrome.action.setBadgeText({ text: timeLeft });
+        });
+    }
+});
+
 // Create context menu
 chrome.contextMenus.removeAll();
 createNormalContextMenu("set_background", "Set as background");
-
-chrome.alarms.onAlarm.addListener(updateSyncTime);
