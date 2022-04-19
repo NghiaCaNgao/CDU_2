@@ -1,4 +1,5 @@
 import { Property, ResponseTimeData } from "./def";
+// TODO: Fix this
 const isProduction = false
 const Host = (isProduction)
     ? "https://raw.githubusercontent.com/NghiaCaNgao/CDU_2/main/data/data.json"
