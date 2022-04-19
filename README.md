@@ -10,5 +10,4 @@ A tool helps you countdown to the national high school exam. You (a student who 
 ### 2.0.4
 - Fix lỗi đồng bộ khi không có internet
 - Thêm splash screen
-- Float countdown có thêm title
-- Them badge countdown
+- Thêm badge countdown
