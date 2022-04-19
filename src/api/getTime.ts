@@ -1,5 +1,8 @@
 import { Property, ResponseTimeData } from "./def";
-const Host = "https://raw.githubusercontent.com/NghiaCaNgao/CDU_2/main/data/data.json";
+const isProduction = false
+const Host = (isProduction)
+    ? "https://raw.githubusercontent.com/NghiaCaNgao/CDU_2/main/data/data.json"
+    : "https://raw.githubusercontent.com/NghiaCaNgao/CDU_2/splashscreen/data/data.json"
 
 const DEFAULT_TIME = Date.now() + 1000 * 60 * 60 * 24 * 7; // 1 week from now
 
