@@ -1,7 +1,7 @@
 import Notification from "./notification";
 import Configurations from "./config";
 import { CountType } from "@/api/def";
-import { EventType } from "./common";
+import { EventEmitType } from "./common";
 import { calcTime } from "@/api/calcTime";
 import { emitCountdownChanged } from "./common";
 import { getTime } from "@/api/getTime";
@@ -80,7 +80,6 @@ function setAutoShowBadge() {
 async function calcTimeLeft(): Promise<string> {
     const config = new Configurations();
     await config.load();
-    console.log(config.get());
     let { finishDate, countBy } = config.get();
     if (countBy == CountType.Second ||
         countBy == CountType.Minute ||
@@ -161,7 +160,7 @@ chrome.alarms.onAlarm.addListener((alarms) => {
 });
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-    if (request.eventType === EventType.ALL) {
+    if (request.eventEmitType === EventEmitType.ALL) {
         sendResponse({ message: "Hello" });
         calcTimeLeft().then(timeLeft => {
             console.log(timeLeft);

@@ -1,24 +1,21 @@
 import Configurations from "@/extensions/config";
 import React from "react";
 import InfoButton from "../components/InfoButton";
-import { emitChangeFromInject, EventType } from "@/extensions/common";
+import { emitChangeFromInject, EventEmitType } from "@/extensions/common";
 import { getTime } from "@/api/getTime";
-
-const yearBorn = [
-    { id: "yb-2k4", title: "2k4", description: "2021-2022" },
-    { id: "yb-2k5", title: "2k5", description: "2022-2023" },
-    { id: "yb-2k6", title: "2k6", description: "2023-2024" }
-]
-
+import { getEvent } from "@/api/getEvent";
+import { EventType } from "@/api/def";
 interface IState {
     yearBornID: string;
+    yearBornList: EventType[];
 }
 
 export default class FinishPage extends React.Component<{}, IState> {
     constructor(props: any) {
         super(props);
         this.state = {
-            yearBornID: "yb-2k4"
+            yearBornID: "yb-2k4",
+            yearBornList: []
         }
     }
 
@@ -28,15 +25,19 @@ export default class FinishPage extends React.Component<{}, IState> {
         config.setByKey("yearBornID", yearBornID);
         config.setByKey("finishDate", await getTime(config.get()));
         await config.save();
-        emitChangeFromInject(EventType.ALL);
+        emitChangeFromInject(EventEmitType.ALL);
         this.setState({ yearBornID });
     }
 
     async componentDidMount(): Promise<void> {
         const config = new Configurations();
         await config.load();
-        const t = config.get();
-        this.setState({ yearBornID: t.yearBornID });
+        const c = config.get();
+        const e = await getEvent();
+        this.setState({
+            yearBornID: c.yearBornID,
+            yearBornList: e
+        });
     }
 
     render() {
@@ -57,7 +58,7 @@ export default class FinishPage extends React.Component<{}, IState> {
                         <p className="font-lexend font-light text-gray-500 text-sm mt-2">We use this to calculate the year you will take part in National High School Exam</p>
                     </div>
                     <div className="mt-8 flex flex-wrap justify-center">
-                        {yearBorn.map(item => (
+                        {this.state.yearBornList.map(item => (
                             <InfoButton
                                 key={item.id}
                                 title={item.title}

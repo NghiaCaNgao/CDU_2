@@ -10,18 +10,10 @@ export enum FieldType {
     yearBornID
 }
 
-
 export interface BackgroundType {
     id: string;
     url: string;
     name: string;
-}
-
-export interface YearBornType{
-    id: string,
-    title:  string,
-    description: string
-    end_time: number
 }
 export interface Property {
     isFloatCountdown: boolean;
@@ -32,10 +24,20 @@ export interface Property {
     textColor: string,
     yearBornID: string
 }
-
 export interface NotificationItem {
     id: number;
     type: "update"|"important";
     title: string;
     description: string;
+}
+export interface EventType {
+    id: string;
+    title: string;
+    description: string;
+    end_time: number;
+}
+
+export interface ResponseTimeData {
+    end_time: number;
+    events: EventType[];
 }

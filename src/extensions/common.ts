@@ -1,16 +1,16 @@
 import { Property } from "@/api/def";
-export enum EventType {
+export enum EventEmitType {
     TEXT_COLOR = "cg-color",
     ALL = "cg-all"
 }
 
-export function emitCountdownChanged(eventType?: EventType, property?: Property) {
+export function emitCountdownChanged(eventEmitType?: EventEmitType, property?: Property) {
     chrome.tabs.query({ url: ["https://*/*", "http://*/*"] }, (tabs) => {
         console.log(tabs.map((tab) => tab.url));
 
         tabs.forEach((tab) => {
             chrome.tabs.sendMessage(tab.id, {
-                eventType: eventType || EventType.ALL,
+                eventEmitType: eventEmitType || EventEmitType.ALL,
                 property: property
             }, function (data: any) {
                 console.log("Send message to all tabs");
@@ -18,9 +18,9 @@ export function emitCountdownChanged(eventType?: EventType, property?: Property)
             });
         });
     });
-    chrome.runtime.sendMessage({ eventType: eventType || EventType.ALL });
+    chrome.runtime.sendMessage({ eventEmitType: eventEmitType || EventEmitType.ALL });
 }
 
-export function emitChangeFromInject(eventType: EventType) {
-    chrome.runtime.sendMessage({ eventType: eventType });
+export function emitChangeFromInject(eventEmitType: EventEmitType) {
+    chrome.runtime.sendMessage({ eventEmitType: eventEmitType });
 }

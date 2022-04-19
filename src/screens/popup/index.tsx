@@ -2,7 +2,7 @@ import React from "react";
 import { CountType, Property } from "@/api/def";
 import { getTime } from "@/api/getTime";
 import Configurations from "@/extensions/config";
-import { emitCountdownChanged, EventType } from "@/extensions/common";
+import { emitCountdownChanged, EventEmitType } from "@/extensions/common";
 import { getDefaultAppData } from "@/api/common";
 
 import HeaderPopup from "./components/HeaderPopup";
@@ -36,13 +36,13 @@ export default class Popup extends React.Component<{}, Property> {
         this.setState({ finishDate });
     }
 
-    async saveConfig(eventType?: EventType): Promise<void> {
+    async saveConfig(eventEmitType?: EventEmitType): Promise<void> {
         const config = new Configurations();
         config.set(this.state);
         await config.save();
 
         // Send message to every current tab
-        emitCountdownChanged(eventType || EventType.ALL, this.state);
+        emitCountdownChanged(eventEmitType || EventEmitType.ALL, this.state);
     }
 
     async componentDidMount() {
@@ -71,7 +71,7 @@ export default class Popup extends React.Component<{}, Property> {
             case FieldType.textColor:
                 this.setState(
                     { textColor: (event as React.ChangeEvent<HTMLInputElement>).target.value },
-                    this.saveConfig.bind(this, EventType.TEXT_COLOR));
+                    this.saveConfig.bind(this, EventEmitType.TEXT_COLOR));
         }
     }
 
