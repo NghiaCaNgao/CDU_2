@@ -11,3 +11,9 @@ A tool helps you countdown to the national high school exam. You (a student who 
 - Fix lỗi đồng bộ khi không có internet
 - Thêm splash screen
 - Thêm badge countdown
+### 2.0.5
+
+## Disclaimer
+- Tất cả hình ảnh trong ứng dụng đều được lấy từ internet. Nếu bạn phát hiện vấn đề bản quyền hãy liên hệ với chúng tôi
+- Chúng tôi không thu thập bất cứ dữ liệu nào của bạn, mội thông tin được lưu trữ dưới local
+

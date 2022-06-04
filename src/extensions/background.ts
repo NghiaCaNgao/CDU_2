@@ -20,13 +20,15 @@ function createTab(url: string) {
 
 // Create new context menu
 function createNormalContextMenu(id: string, title: string) {
-    chrome.contextMenus.create({
-        contexts: ["image"],
-        type: "normal",
-        documentUrlPatterns: ["<all_urls>"],
-        id: id,
-        title: title,
-    });
+    if (chrome.contextMenus) {
+        chrome.contextMenus.create({
+            contexts: ["image"],
+            type: "normal",
+            documentUrlPatterns: ["<all_urls>"],
+            id: id,
+            title: title,
+        });
+    }
 }
 
 async function setBackground(url: string) {
@@ -81,9 +83,9 @@ async function calcTimeLeft(): Promise<string> {
     const config = new Configurations();
     await config.load();
     let { finishDate, countBy } = config.get();
-    if (countBy == CountType.Second ||
-        countBy == CountType.Minute ||
-        countBy == CountType.Hour) {
+    if (countBy === CountType.Second ||
+        countBy === CountType.Minute ||
+        countBy === CountType.Hour) {
         countBy = CountType.Day;
     }
 
@@ -94,81 +96,89 @@ async function calcTimeLeft(): Promise<string> {
         return stringBadge;
 }
 
-chrome.runtime.onInstalled.addListener(async details => {
-    await Notification.clear()
-    // Create new data for the first installation times
-    if (details.reason === chrome.runtime.OnInstalledReason.INSTALL) {
-        await Configurations.clear();
-        setAutoSync();
-        setAutoShowBadge();
-        createTab(SplashPagePath);
+if (chrome.runtime) {
+    chrome.runtime.onInstalled.addListener(async details => {
+        await Notification.clear()
+        // Create new data for the first installation times
+        if (details.reason === chrome.runtime.OnInstalledReason.INSTALL) {
+            await Configurations.clear();
+            setAutoSync();
+            setAutoShowBadge();
+            createTab(SplashPagePath);
 
-        // Create welcome notification for first time        
-        await Notification.create(
-            "c2u_welcome",
-            {
-                title: "Thanks for installing!",
-                message: "Track your countdown easily and easily.",
-            }
-        );
+            // Create welcome notification for first time        
+            await Notification.create(
+                "c2u_welcome",
+                {
+                    title: "Thanks for installing!",
+                    message: "Track your countdown easily and easily.",
+                }
+            );
 
-    }
+        }
 
-    // Show notification after updating
-    else if (details.reason === chrome.runtime.OnInstalledReason.UPDATE) {
-        setAutoShowBadge();
-        await Notification.create(
-            "c2u_update",
-            {
-                title: "Updated!",
-                message: "Update successfully",
-                buttons: [{
-                    title: "Changelog"
-                }]
+        // Show notification after updating
+        else if (details.reason === chrome.runtime.OnInstalledReason.UPDATE) {
+            setAutoShowBadge();
+            await Notification.create(
+                "c2u_update",
+                {
+                    title: "Updated!",
+                    message: "Update successfully",
+                    buttons: [{
+                        title: "Changelog"
+                    }]
+                });
+        }
+
+        // On click notification
+        chrome.notifications.onButtonClicked.addListener(
+            (notificationId, buttonIndex) => {
+                if (notificationId === "c2u_update" && buttonIndex === 0) {
+                    createTab(HomePagePath);
+                }
             });
-    }
-
-    // On click notification
-    chrome.notifications.onButtonClicked.addListener(
-        (notificationId, buttonIndex) => {
-            if (notificationId === "c2u_update" && buttonIndex === 0) {
-                createTab(HomePagePath);
-            }
-        });
-});
+    });
+}
 
 // handle context menu click
-chrome.contextMenus.onClicked.addListener(async info => {
-    switch (info.menuItemId) {
-        case "set_background": {
-            setBackground(info.srcUrl);
-            break;
+if (chrome.contextMenus) {
+    chrome.contextMenus.onClicked.addListener(async info => {
+        switch (info.menuItemId) {
+            case "set_background": {
+                setBackground(info.srcUrl);
+                break;
+            }
         }
-    }
-});
+    });
+}
 
 // Handle alarm
-chrome.alarms.onAlarm.addListener((alarms) => {
-    if (alarms.name === "auto sync") {
-        updateSyncTime();
-    }
-    else if (alarms.name === "auto show badge") {
-        calcTimeLeft().then(timeLeft => {
-            chrome.action.setBadgeText({ text: timeLeft });
-        });
-    }
-});
+if (chrome.alarms) {
+    chrome.alarms.onAlarm.addListener((alarms) => {
+        if (alarms.name === "auto sync") {
+            updateSyncTime();
+        }
+        else if (alarms.name === "auto show badge") {
+            calcTimeLeft().then(timeLeft => {
+                chrome.action.setBadgeText({ text: timeLeft });
+            });
+        }
+    });
+}
 
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-    if (request.eventEmitType === EventEmitType.ALL) {
-        sendResponse({ message: "Hello" });
-        calcTimeLeft().then(timeLeft => {
-            console.log(timeLeft);
-            chrome.action.setBadgeText({ text: timeLeft });
-        });
-    }
-});
+if (chrome.runtime) {
+    chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+        if (request.eventEmitType === EventEmitType.ALL) {
+            sendResponse({ message: "Hello" });
+            calcTimeLeft().then(timeLeft => {
+                console.log(timeLeft);
+                chrome.action.setBadgeText({ text: timeLeft });
+            });
+        }
+    });
+}
 
 // Create context menu
-chrome.contextMenus.removeAll();
+if (chrome.contextMenus) chrome.contextMenus.removeAll();
 createNormalContextMenu("set_background", "Set as background");

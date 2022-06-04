@@ -1,8 +1,10 @@
-[
-    {
-        "id": "001",
-        "type": "update",
-        "title": "Update 2.0.4",
-        "description": "Nếu gặp lỗi, hãy cài đặt lại ứng dụng"
-    }
-]
+{
+    "data": [
+        {
+            "id": "001",
+            "type": "update",
+            "title": "Update 2.0.4",
+            "description": "Nếu gặp lỗi, hãy cài đặt lại ứng dụng"
+        }
+    ]
+}

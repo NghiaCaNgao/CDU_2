@@ -1,18 +1,17 @@
 import React from "react";
+import Configurations from "@/extensions/config";
 import { CountType, Property } from "@/api/def";
 import { getTime } from "@/api/getTime";
-import Configurations from "@/extensions/config";
 import { emitCountdownChanged, EventEmitType } from "@/extensions/common";
 import { getDefaultAppData } from "@/api/common";
+import { BackgroundType } from "@/api/def";
 
 import HeaderPopup from "./components/HeaderPopup";
 import CountdownCard from "./components/CountdownCard";
+import Setting, { FieldType } from "./components/Setting";
 // import FooterPopup from "./components/FooterPopup";
-import SettingSection, { FieldType } from "./components/SettingSection";
-import { BackgroundType } from "@/api/def";
 
 import "./index.scss";
-
 export default class Popup extends React.Component<{}, Property> {
     constructor(props: any) {
         super(props);
@@ -20,14 +19,18 @@ export default class Popup extends React.Component<{}, Property> {
     }
 
     async loadAppData(isEmitEvent = true) {
+        // Load data from extension storage
         const config = new Configurations();
         await config.load();
+
+        // Update state
         this.setState(config.get(), async () => {
             if (this.state.isSyncWithServer) {
                 await this.updateFinishDate();
             }
         });
-        // Send message to every current tab
+
+        // Send message to every current tab if isEmitEvent is true
         if (isEmitEvent) emitCountdownChanged();
     }
 
@@ -37,11 +40,12 @@ export default class Popup extends React.Component<{}, Property> {
     }
 
     async saveConfig(eventEmitType?: EventEmitType): Promise<void> {
+        // Load and save data to extension storage
         const config = new Configurations();
         config.set(this.state);
         await config.save();
 
-        // Send message to every current tab
+        // Send message to every current tab 
         emitCountdownChanged(eventEmitType || EventEmitType.ALL, this.state);
     }
 
@@ -85,7 +89,7 @@ export default class Popup extends React.Component<{}, Property> {
                     background={this.state.background}
                     countType={this.state.countBy}
                     finishDate={this.state.finishDate} />
-                <SettingSection data={this.state} onChange={this.handleChange.bind(this)} />
+                <Setting data={this.state} onChange={this.handleChange.bind(this)} />
                 {/* <FooterPopup /> */}
             </div>
         );

@@ -15,7 +15,7 @@ interface IProps {
     onChange?: (field: FieldType, event: any) => void;
 }
 
-export default class SettingSection extends React.Component<IProps, {}> {
+export default class Setting extends React.Component<IProps, {}> {
     handleChange(field: FieldType, event: React.ChangeEvent<HTMLInputElement> | BackgroundType) {
         this.props.onChange && this.props.onChange(field, event);
     }

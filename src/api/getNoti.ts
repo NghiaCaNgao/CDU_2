@@ -1,29 +1,24 @@
-import axios from "axios";
-import { NotificationItem } from "./def"
-const Host = "https://raw.githubusercontent.com/NghiaCaNgao/CDU_2/main/data/notification.json";
+import { NotificationItem, ResponseNotificationData } from "./def"
+import { getAbsoluteURL } from "./common";
 
-async function getNoti2(): Promise<NotificationItem[]> {
+const Host = getAbsoluteURL("/data/notification.json");
+
+/* Get general notification from server
+* @returns {Promise<NotificationItem[]>}: The notification list or empty array if error
+*/
+export async function getNotification(): Promise<NotificationItem[]> {
     try {
-        const res = await fetch(Host, {
+        const response = await fetch(Host, {
             method: "GET",
-            mode: "cors",
+            mode: "cors", // for external requests (avoid CORS error)
         });
-        return await res.json();
+        const data: ResponseNotificationData = await response.json();
+        console.log(data);
+        if (data) return data.data;
+        else throw new Error("Invalid response data");
     }
     catch (err) {
         console.log(err);
         return [];
     }
-}
-
-export async function getNoti(): Promise<NotificationItem[]> {
-    return axios.get(Host)
-        .then(res => {
-            const data: NotificationItem[] = res.data;
-            return data;
-        })
-        .catch(async (err) => {
-            console.log(err);
-            return await getNoti2();
-        });
 }

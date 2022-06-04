@@ -41,3 +41,7 @@ export interface ResponseTimeData {
     end_time: number;
     events: EventType[];
 }
+
+export interface ResponseNotificationData{
+    data: NotificationItem[];
+}

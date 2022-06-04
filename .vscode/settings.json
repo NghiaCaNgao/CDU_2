@@ -5,6 +5,7 @@
         "NotiItem",
         "nunito",
         "showNoti",
+        "Swal",
         "toggleNoti"
     ]
 }

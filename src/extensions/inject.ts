@@ -131,21 +131,23 @@ function changeTextColor(textColor: string): void {
     }
 }
 
-chrome.runtime.onMessage.addListener(
-    function (request: { eventEmitType: EventEmitType, property: Property }, sender, sendResponse) {
-        switch (request.eventEmitType) {
-            case EventEmitType.ALL:
-                init();
-                break;
-            case EventEmitType.TEXT_COLOR:
-                changeTextColor(request.property.textColor);
-                break;
-            default:
-                break;
-        }
+if (chrome.runtime) {
+    chrome.runtime.onMessage.addListener(
+        function (request: { eventEmitType: EventEmitType, property: Property }, sender, sendResponse) {
+            switch (request.eventEmitType) {
+                case EventEmitType.ALL:
+                    init();
+                    break;
+                case EventEmitType.TEXT_COLOR:
+                    changeTextColor(request.property.textColor);
+                    break;
+                default:
+                    break;
+            }
 
-        sendResponse({ data: request.property });
-    });
+            sendResponse({ data: request.property });
+        });
+}
 
 addGoogleFontStyle();
 init();

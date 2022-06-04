@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Countdown to Uni",
   "short_name": "C2U",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "default_locale": "vi",
   "author": "NghiaCaNgao",
   "description": "Countdown to national exam",

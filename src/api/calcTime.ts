@@ -1,5 +1,14 @@
 import { CountType } from './def';
 
+/*
+* Calculate time left and return formatted string
+* @param 
+    format: CountType - The type of countdown: (by day, month,...)
+    endTime: number - The end time of the countdown
+    delimiter: string - The delimiter between the time parts
+@ returns {string}: The formatted string
+*/
+
 export function calcTime(format: CountType, endTime: number, delimiter: string = "-"): string {
     const now = new Date();
     const time = endTime - now.getTime();

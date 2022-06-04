@@ -16,32 +16,44 @@ interface IProps {
 const BackgroundImageList = [
     {
         name: "Water",
-        url: chrome.runtime.getURL("/images/background/bg1.jpg"),
+        url: (chrome.runtime)
+            ? chrome.runtime.getURL("/images/background/bg1.jpg")
+            : "/images/background/bg1.jpg",
         id: "water"
     },
     {
         name: "Dark Sky",
-        url: chrome.runtime.getURL("/images/background/bg2.jpg"),
+        url: (chrome.runtime)
+            ? chrome.runtime.getURL("/images/background/bg2.jpg")
+            : "/images/background/bg2.jpg",
         id: "dark-sky"
     },
     {
         name: "Blue Mine",
-        url: chrome.runtime.getURL("/images/background/bg3.jpg"),
+        url: (chrome.runtime)
+            ? chrome.runtime.getURL("/images/background/bg3.jpg")
+            : "/images/background/bg3.jpg",
         id: "blue-mine"
     },
     {
         name: "Hero",
-        url: chrome.runtime.getURL("/images/background/bg4.jpg"),
+        url: (chrome.runtime)
+            ? chrome.runtime.getURL("/images/background/bg4.jpg")
+            : "/images/background/b4g.jpg",
         id: "hero"
     },
     {
         name: "Step",
-        url: chrome.runtime.getURL("/images/background/bg5.jpg"),
+        url: (chrome.runtime)
+            ? chrome.runtime.getURL("/images/background/bg5.jpg")
+            : "/images/background/bg.jpg",
         id: "step"
     },
     {
         name: "Gas",
-        url: chrome.runtime.getURL("/images/background/bg6.jpg"),
+        url: (chrome.runtime)
+            ? chrome.runtime.getURL("/images/background/bg6.jpg")
+            : "/images/background/bg.jpg",
         id: "gas"
     }
 ]
