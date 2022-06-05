@@ -1,7 +1,7 @@
 import { ResponseTimeData, EventType } from "./def";
 import { getAbsoluteURL } from "./common";
 
-const Host = getAbsoluteURL("data/data.json");
+const Host = getAbsoluteURL("/data/data.json");
 
 /*
 * Get Time events from server

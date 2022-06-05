@@ -10,10 +10,11 @@
 __webpack_require__.d(__webpack_exports__, {
   "aU": function() { return /* binding */ Action; },
   "q_": function() { return /* binding */ createHashHistory; },
+  "Ep": function() { return /* binding */ createPath; },
   "cP": function() { return /* binding */ parsePath; }
 });
 
-// UNUSED EXPORTS: createBrowserHistory, createMemoryHistory, createPath
+// UNUSED EXPORTS: createBrowserHistory, createMemoryHistory
 
 ;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/extends.js
 function extends_extends() {
@@ -9540,16 +9541,443 @@ if (true) {
 
 /***/ }),
 
+/***/ 3504:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "OL": function() { return /* binding */ NavLink; },
+/* harmony export */   "UT": function() { return /* binding */ HashRouter; },
+/* harmony export */   "rU": function() { return /* binding */ Link; }
+/* harmony export */ });
+/* unused harmony exports BrowserRouter, createSearchParams, unstable_HistoryRouter, useLinkClickHandler, useSearchParams */
+/* harmony import */ var E_CDU_countdown2uni_node_modules_babel_runtime_helpers_esm_slicedToArray_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(8152);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2791);
+/* harmony import */ var history__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3368);
+/* harmony import */ var react_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(6871);
+
+
+
+/**
+ * React Router DOM v6.3.0
+ *
+ * Copyright (c) Remix Software Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE.md file in the root directory of this source tree.
+ *
+ * @license MIT
+ */
+
+
+
+
+
+function _extends() {
+  _extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+
+    return target;
+  };
+
+  return _extends.apply(this, arguments);
+}
+
+function _objectWithoutPropertiesLoose(source, excluded) {
+  if (source == null) return {};
+  var target = {};
+  var sourceKeys = Object.keys(source);
+  var key, i;
+
+  for (i = 0; i < sourceKeys.length; i++) {
+    key = sourceKeys[i];
+    if (excluded.indexOf(key) >= 0) continue;
+    target[key] = source[key];
+  }
+
+  return target;
+}
+
+var _excluded = ["onClick", "reloadDocument", "replace", "state", "target", "to"],
+    _excluded2 = ["aria-current", "caseSensitive", "className", "end", "style", "to", "children"];
+
+function warning(cond, message) {
+  if (!cond) {
+    // eslint-disable-next-line no-console
+    if (typeof console !== "undefined") console.warn(message);
+
+    try {
+      // Welcome to debugging React Router!
+      //
+      // This error is thrown as a convenience so you can more easily
+      // find the source for a warning that appears in the console by
+      // enabling "pause on exceptions" in your JavaScript debugger.
+      throw new Error(message); // eslint-disable-next-line no-empty
+    } catch (e) {}
+  }
+} ////////////////////////////////////////////////////////////////////////////////
+// COMPONENTS
+////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * A `<Router>` for use in web browsers. Provides the cleanest URLs.
+ */
+
+
+function BrowserRouter(_ref) {
+  var basename = _ref.basename,
+      children = _ref.children,
+      window = _ref.window;
+  var historyRef = useRef();
+
+  if (historyRef.current == null) {
+    historyRef.current = createBrowserHistory({
+      window: window
+    });
+  }
+
+  var history = historyRef.current;
+
+  var _useState = useState({
+    action: history.action,
+    location: history.location
+  }),
+      _useState2 = _slicedToArray(_useState, 2),
+      state = _useState2[0],
+      setState = _useState2[1];
+
+  useLayoutEffect(function () {
+    return history.listen(setState);
+  }, [history]);
+  return /*#__PURE__*/createElement(Router, {
+    basename: basename,
+    children: children,
+    location: state.location,
+    navigationType: state.action,
+    navigator: history
+  });
+}
+/**
+ * A `<Router>` for use in web browsers. Stores the location in the hash
+ * portion of the URL so it is not sent to the server.
+ */
+
+
+function HashRouter(_ref2) {
+  var basename = _ref2.basename,
+      children = _ref2.children,
+      window = _ref2.window;
+  var historyRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
+
+  if (historyRef.current == null) {
+    historyRef.current = (0,history__WEBPACK_IMPORTED_MODULE_1__/* .createHashHistory */ .q_)({
+      window: window
+    });
+  }
+
+  var history = historyRef.current;
+
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
+    action: history.action,
+    location: history.location
+  }),
+      _useState4 = (0,E_CDU_countdown2uni_node_modules_babel_runtime_helpers_esm_slicedToArray_js__WEBPACK_IMPORTED_MODULE_2__/* ["default"] */ .Z)(_useState3, 2),
+      state = _useState4[0],
+      setState = _useState4[1];
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useLayoutEffect)(function () {
+    return history.listen(setState);
+  }, [history]);
+  return /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_router__WEBPACK_IMPORTED_MODULE_3__/* .Router */ .F0, {
+    basename: basename,
+    children: children,
+    location: state.location,
+    navigationType: state.action,
+    navigator: history
+  });
+}
+/**
+ * A `<Router>` that accepts a pre-instantiated history object. It's important
+ * to note that using your own history object is highly discouraged and may add
+ * two versions of the history library to your bundles unless you use the same
+ * version of the history library that React Router uses internally.
+ */
+
+
+function HistoryRouter(_ref3) {
+  var basename = _ref3.basename,
+      children = _ref3.children,
+      history = _ref3.history;
+
+  var _useState5 = useState({
+    action: history.action,
+    location: history.location
+  }),
+      _useState6 = _slicedToArray(_useState5, 2),
+      state = _useState6[0],
+      setState = _useState6[1];
+
+  useLayoutEffect(function () {
+    return history.listen(setState);
+  }, [history]);
+  return /*#__PURE__*/createElement(Router, {
+    basename: basename,
+    children: children,
+    location: state.location,
+    navigationType: state.action,
+    navigator: history
+  });
+}
+
+if (false) {}
+
+function isModifiedEvent(event) {
+  return !!(event.metaKey || event.altKey || event.ctrlKey || event.shiftKey);
+}
+/**
+ * The public API for rendering a history-aware <a>.
+ */
+
+
+var Link = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(function LinkWithRef(_ref4, ref) {
+  var onClick = _ref4.onClick,
+      reloadDocument = _ref4.reloadDocument,
+      _ref4$replace = _ref4.replace,
+      replace = _ref4$replace === void 0 ? false : _ref4$replace,
+      state = _ref4.state,
+      target = _ref4.target,
+      to = _ref4.to,
+      rest = _objectWithoutPropertiesLoose(_ref4, _excluded);
+
+  var href = (0,react_router__WEBPACK_IMPORTED_MODULE_3__/* .useHref */ .oQ)(to);
+  var internalOnClick = useLinkClickHandler(to, {
+    replace: replace,
+    state: state,
+    target: target
+  });
+
+  function handleClick(event) {
+    if (onClick) onClick(event);
+
+    if (!event.defaultPrevented && !reloadDocument) {
+      internalOnClick(event);
+    }
+  }
+
+  return (
+    /*#__PURE__*/
+    // eslint-disable-next-line jsx-a11y/anchor-has-content
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", _extends({}, rest, {
+      href: href,
+      onClick: handleClick,
+      ref: ref,
+      target: target
+    }))
+  );
+});
+
+if (false) {}
+/**
+ * A <Link> wrapper that knows if it's "active" or not.
+ */
+
+
+var NavLink = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(function NavLinkWithRef(_ref5, ref) {
+  var _ref5$ariaCurrent = _ref5["aria-current"],
+      ariaCurrentProp = _ref5$ariaCurrent === void 0 ? "page" : _ref5$ariaCurrent,
+      _ref5$caseSensitive = _ref5.caseSensitive,
+      caseSensitive = _ref5$caseSensitive === void 0 ? false : _ref5$caseSensitive,
+      _ref5$className = _ref5.className,
+      classNameProp = _ref5$className === void 0 ? "" : _ref5$className,
+      _ref5$end = _ref5.end,
+      end = _ref5$end === void 0 ? false : _ref5$end,
+      styleProp = _ref5.style,
+      to = _ref5.to,
+      children = _ref5.children,
+      rest = _objectWithoutPropertiesLoose(_ref5, _excluded2);
+
+  var location = (0,react_router__WEBPACK_IMPORTED_MODULE_3__/* .useLocation */ .TH)();
+  var path = (0,react_router__WEBPACK_IMPORTED_MODULE_3__/* .useResolvedPath */ .WU)(to);
+  var locationPathname = location.pathname;
+  var toPathname = path.pathname;
+
+  if (!caseSensitive) {
+    locationPathname = locationPathname.toLowerCase();
+    toPathname = toPathname.toLowerCase();
+  }
+
+  var isActive = locationPathname === toPathname || !end && locationPathname.startsWith(toPathname) && locationPathname.charAt(toPathname.length) === "/";
+  var ariaCurrent = isActive ? ariaCurrentProp : undefined;
+  var className;
+
+  if (typeof classNameProp === "function") {
+    className = classNameProp({
+      isActive: isActive
+    });
+  } else {
+    // If the className prop is not a function, we use a default `active`
+    // class for <NavLink />s that are active. In v5 `active` was the default
+    // value for `activeClassName`, but we are removing that API and can still
+    // use the old default behavior for a cleaner upgrade path and keep the
+    // simple styling rules working as they currently do.
+    className = [classNameProp, isActive ? "active" : null].filter(Boolean).join(" ");
+  }
+
+  var style = typeof styleProp === "function" ? styleProp({
+    isActive: isActive
+  }) : styleProp;
+  return /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(Link, _extends({}, rest, {
+    "aria-current": ariaCurrent,
+    className: className,
+    ref: ref,
+    style: style,
+    to: to
+  }), typeof children === "function" ? children({
+    isActive: isActive
+  }) : children);
+});
+
+if (false) {} ////////////////////////////////////////////////////////////////////////////////
+// HOOKS
+////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * Handles the click behavior for router `<Link>` components. This is useful if
+ * you need to create custom `<Link>` components with the same click behavior we
+ * use in our exported `<Link>`.
+ */
+
+
+function useLinkClickHandler(to, _temp) {
+  var _ref6 = _temp === void 0 ? {} : _temp,
+      target = _ref6.target,
+      replaceProp = _ref6.replace,
+      state = _ref6.state;
+
+  var navigate = (0,react_router__WEBPACK_IMPORTED_MODULE_3__/* .useNavigate */ .s0)();
+  var location = (0,react_router__WEBPACK_IMPORTED_MODULE_3__/* .useLocation */ .TH)();
+  var path = (0,react_router__WEBPACK_IMPORTED_MODULE_3__/* .useResolvedPath */ .WU)(to);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(function (event) {
+    if (event.button === 0 && ( // Ignore everything but left clicks
+    !target || target === "_self") && // Let browser handle "target=_blank" etc.
+    !isModifiedEvent(event) // Ignore clicks with modifier keys
+    ) {
+      event.preventDefault(); // If the URL hasn't changed, a regular <a> will do a replace instead of
+      // a push, so do the same here.
+
+      var replace = !!replaceProp || (0,history__WEBPACK_IMPORTED_MODULE_1__/* .createPath */ .Ep)(location) === (0,history__WEBPACK_IMPORTED_MODULE_1__/* .createPath */ .Ep)(path);
+      navigate(to, {
+        replace: replace,
+        state: state
+      });
+    }
+  }, [location, navigate, path, replaceProp, state, target, to]);
+}
+/**
+ * A convenient wrapper for reading and writing search parameters via the
+ * URLSearchParams interface.
+ */
+
+
+function useSearchParams(defaultInit) {
+   false ? 0 : void 0;
+  var defaultSearchParamsRef = useRef(createSearchParams(defaultInit));
+  var location = useLocation();
+  var searchParams = useMemo(function () {
+    var searchParams = createSearchParams(location.search);
+
+    var _iterator = _createForOfIteratorHelper(defaultSearchParamsRef.current.keys()),
+        _step;
+
+    try {
+      var _loop = function _loop() {
+        var key = _step.value;
+
+        if (!searchParams.has(key)) {
+          defaultSearchParamsRef.current.getAll(key).forEach(function (value) {
+            searchParams.append(key, value);
+          });
+        }
+      };
+
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        _loop();
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
+
+    return searchParams;
+  }, [location.search]);
+  var navigate = useNavigate();
+  var setSearchParams = useCallback(function (nextInit, navigateOptions) {
+    navigate("?" + createSearchParams(nextInit), navigateOptions);
+  }, [navigate]);
+  return [searchParams, setSearchParams];
+}
+/**
+ * Creates a URLSearchParams object using the given initializer.
+ *
+ * This is identical to `new URLSearchParams(init)` except it also
+ * supports arrays as values in the object form of the initializer
+ * instead of just strings. This is convenient when you need multiple
+ * values for a given key, but don't want to use an array initializer.
+ *
+ * For example, instead of:
+ *
+ *   let searchParams = new URLSearchParams([
+ *     ['sort', 'name'],
+ *     ['sort', 'price']
+ *   ]);
+ *
+ * you can do:
+ *
+ *   let searchParams = createSearchParams({
+ *     sort: ['name', 'price']
+ *   });
+ */
+
+
+function createSearchParams(init) {
+  if (init === void 0) {
+    init = "";
+  }
+
+  return new URLSearchParams(typeof init === "string" || Array.isArray(init) || init instanceof URLSearchParams ? init : Object.keys(init).reduce(function (memo, key) {
+    var value = init[key];
+    return memo.concat(Array.isArray(value) ? value.map(function (v) {
+      return [key, v];
+    }) : [[key, value]]);
+  }, []));
+}
+
+
+
+/***/ }),
+
 /***/ 6871:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "AW": function() { return /* binding */ Route; },
 /* harmony export */   "F0": function() { return /* binding */ Router; },
+/* harmony export */   "TH": function() { return /* binding */ useLocation; },
+/* harmony export */   "WU": function() { return /* binding */ useResolvedPath; },
 /* harmony export */   "Z5": function() { return /* binding */ Routes; },
-/* harmony export */   "j3": function() { return /* binding */ Outlet; }
+/* harmony export */   "j3": function() { return /* binding */ Outlet; },
+/* harmony export */   "oQ": function() { return /* binding */ useHref; },
+/* harmony export */   "s0": function() { return /* binding */ useNavigate; }
 /* harmony export */ });
-/* unused harmony exports MemoryRouter, Navigate, UNSAFE_LocationContext, UNSAFE_NavigationContext, UNSAFE_RouteContext, createRoutesFromChildren, generatePath, matchPath, matchRoutes, renderMatches, resolvePath, useHref, useInRouterContext, useLocation, useMatch, useNavigate, useNavigationType, useOutlet, useOutletContext, useParams, useResolvedPath, useRoutes */
+/* unused harmony exports MemoryRouter, Navigate, UNSAFE_LocationContext, UNSAFE_NavigationContext, UNSAFE_RouteContext, createRoutesFromChildren, generatePath, matchPath, matchRoutes, renderMatches, resolvePath, useInRouterContext, useMatch, useNavigationType, useOutlet, useOutletContext, useParams, useRoutes */
 /* harmony import */ var E_CDU_countdown2uni_node_modules_babel_runtime_helpers_esm_slicedToArray_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(8152);
 /* harmony import */ var history__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3368);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2791);
@@ -9909,7 +10337,7 @@ function resolvePath(to, fromPathname) {
     fromPathname = "/";
   }
 
-  var _ref5 = typeof to === "string" ? parsePath(to) : to,
+  var _ref5 = typeof to === "string" ? (0,history__WEBPACK_IMPORTED_MODULE_1__/* .parsePath */ .cP)(to) : to,
       toPathname = _ref5.pathname,
       _ref5$search = _ref5.search,
       search = _ref5$search === void 0 ? "" : _ref5$search,
@@ -9939,7 +10367,7 @@ function resolvePathname(relativePath, fromPathname) {
 }
 
 function resolveTo(toArg, routePathnames, locationPathname) {
-  var to = typeof toArg === "string" ? parsePath(toArg) : toArg;
+  var to = typeof toArg === "string" ? (0,history__WEBPACK_IMPORTED_MODULE_1__/* .parsePath */ .cP)(toArg) : toArg;
   var toPathname = toArg === "" || to.pathname === "" ? "/" : to.pathname; // If a pathname is explicitly provided in `to`, it should be relative to the
   // route context. This is explained in `Note on `<Link to>` values` in our
   // migration guide from v5 as a means of disambiguation between `to` values
@@ -9984,7 +10412,7 @@ function resolveTo(toArg, routePathnames, locationPathname) {
 
 function getToPathname(to) {
   // Empty strings should be treated the same as / paths
-  return to === "" || to.pathname === "" ? "/" : typeof to === "string" ? parsePath(to).pathname : to.pathname;
+  return to === "" || to.pathname === "" ? "/" : typeof to === "string" ? (0,history__WEBPACK_IMPORTED_MODULE_1__/* .parsePath */ .cP)(to).pathname : to.pathname;
 }
 
 function stripBasename(pathname, basename) {
@@ -10030,7 +10458,7 @@ var normalizeHash = function normalizeHash(hash) {
 function useHref(to) {
   !useInRouterContext() ?  false ? 0 : invariant(false) : void 0;
 
-  var _useContext = useContext(NavigationContext),
+  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(NavigationContext),
       basename = _useContext.basename,
       navigator = _useContext.navigator;
 
@@ -10124,11 +10552,11 @@ function useMatch(pattern) {
 function useNavigate() {
   !useInRouterContext() ?  false ? 0 : invariant(false) : void 0;
 
-  var _useContext2 = useContext(NavigationContext),
+  var _useContext2 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(NavigationContext),
       basename = _useContext2.basename,
       navigator = _useContext2.navigator;
 
-  var _useContext3 = useContext(RouteContext),
+  var _useContext3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(RouteContext),
       matches = _useContext3.matches;
 
   var _useLocation2 = useLocation(),
@@ -10137,11 +10565,11 @@ function useNavigate() {
   var routePathnamesJson = JSON.stringify(matches.map(function (match) {
     return match.pathnameBase;
   }));
-  var activeRef = useRef(false);
-  useEffect(function () {
+  var activeRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(false);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     activeRef.current = true;
   });
-  var navigate = useCallback(function (to, options) {
+  var navigate = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(function (to, options) {
     if (options === void 0) {
       options = {};
     }
@@ -10217,7 +10645,7 @@ function useParams() {
 
 
 function useResolvedPath(to) {
-  var _useContext5 = useContext(RouteContext),
+  var _useContext5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(RouteContext),
       matches = _useContext5.matches;
 
   var _useLocation3 = useLocation(),
@@ -10226,7 +10654,7 @@ function useResolvedPath(to) {
   var routePathnamesJson = JSON.stringify(matches.map(function (match) {
     return match.pathnameBase;
   }));
-  return useMemo(function () {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(function () {
     return resolveTo(to, JSON.parse(routePathnamesJson), locationPathname);
   }, [to, routePathnamesJson, locationPathname]);
 }
@@ -11367,194 +11795,10 @@ if (true) {
 
 /***/ }),
 
-/***/ 7326:
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+/***/ 1273:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Z": function() { return /* binding */ _assertThisInitialized; }
-/* harmony export */ });
-function _assertThisInitialized(self) {
-  if (self === void 0) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }
-
-  return self;
-}
-
-/***/ }),
-
-/***/ 5671:
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Z": function() { return /* binding */ _classCallCheck; }
-/* harmony export */ });
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
-
-/***/ }),
-
-/***/ 3144:
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Z": function() { return /* binding */ _createClass; }
-/* harmony export */ });
-function _defineProperties(target, props) {
-  for (var i = 0; i < props.length; i++) {
-    var descriptor = props[i];
-    descriptor.enumerable = descriptor.enumerable || false;
-    descriptor.configurable = true;
-    if ("value" in descriptor) descriptor.writable = true;
-    Object.defineProperty(target, descriptor.key, descriptor);
-  }
-}
-
-function _createClass(Constructor, protoProps, staticProps) {
-  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
-  if (staticProps) _defineProperties(Constructor, staticProps);
-  Object.defineProperty(Constructor, "prototype", {
-    writable: false
-  });
-  return Constructor;
-}
-
-/***/ }),
-
-/***/ 9388:
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Z": function() { return /* binding */ _createSuper; }
-/* harmony export */ });
-/* harmony import */ var _getPrototypeOf_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1120);
-/* harmony import */ var _isNativeReflectConstruct_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(8814);
-/* harmony import */ var _possibleConstructorReturn_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(2963);
-
-
-
-function _createSuper(Derived) {
-  var hasNativeReflectConstruct = (0,_isNativeReflectConstruct_js__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .Z)();
-  return function _createSuperInternal() {
-    var Super = (0,_getPrototypeOf_js__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .Z)(Derived),
-        result;
-
-    if (hasNativeReflectConstruct) {
-      var NewTarget = (0,_getPrototypeOf_js__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .Z)(this).constructor;
-      result = Reflect.construct(Super, arguments, NewTarget);
-    } else {
-      result = Super.apply(this, arguments);
-    }
-
-    return (0,_possibleConstructorReturn_js__WEBPACK_IMPORTED_MODULE_2__/* ["default"] */ .Z)(this, result);
-  };
-}
-
-/***/ }),
-
-/***/ 1120:
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Z": function() { return /* binding */ _getPrototypeOf; }
-/* harmony export */ });
-function _getPrototypeOf(o) {
-  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
-    return o.__proto__ || Object.getPrototypeOf(o);
-  };
-  return _getPrototypeOf(o);
-}
-
-/***/ }),
-
-/***/ 136:
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Z": function() { return /* binding */ _inherits; }
-/* harmony export */ });
-/* harmony import */ var _setPrototypeOf_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(9611);
-
-function _inherits(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function");
-  }
-
-  subClass.prototype = Object.create(superClass && superClass.prototype, {
-    constructor: {
-      value: subClass,
-      writable: true,
-      configurable: true
-    }
-  });
-  Object.defineProperty(subClass, "prototype", {
-    writable: false
-  });
-  if (superClass) (0,_setPrototypeOf_js__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .Z)(subClass, superClass);
-}
-
-/***/ }),
-
-/***/ 8814:
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Z": function() { return /* binding */ _isNativeReflectConstruct; }
-/* harmony export */ });
-function _isNativeReflectConstruct() {
-  if (typeof Reflect === "undefined" || !Reflect.construct) return false;
-  if (Reflect.construct.sham) return false;
-  if (typeof Proxy === "function") return true;
-
-  try {
-    Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {}));
-    return true;
-  } catch (e) {
-    return false;
-  }
-}
-
-/***/ }),
-
-/***/ 2963:
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Z": function() { return /* binding */ _possibleConstructorReturn; }
-/* harmony export */ });
-/* harmony import */ var _typeof_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1002);
-/* harmony import */ var _assertThisInitialized_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(7326);
-
-
-function _possibleConstructorReturn(self, call) {
-  if (call && ((0,_typeof_js__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .Z)(call) === "object" || typeof call === "function")) {
-    return call;
-  } else if (call !== void 0) {
-    throw new TypeError("Derived constructors may only return object or undefined");
-  }
-
-  return (0,_assertThisInitialized_js__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .Z)(self);
-}
-
-/***/ }),
-
-/***/ 9611:
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Z": function() { return /* binding */ _setPrototypeOf; }
-/* harmony export */ });
-function _setPrototypeOf(o, p) {
-  _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
-    o.__proto__ = p;
-    return o;
-  };
-
-  return _setPrototypeOf(o, p);
-}
+module.exports = __webpack_require__.p + "static/media/loading.a3ea5b473cf6e90aa791.gif";
 
 /***/ }),
 
@@ -11634,24 +11878,6 @@ function _slicedToArray(arr, i) {
   return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
 }
 
-/***/ }),
-
-/***/ 1002:
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Z": function() { return /* binding */ _typeof; }
-/* harmony export */ });
-function _typeof(obj) {
-  "@babel/helpers - typeof";
-
-  return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) {
-    return typeof obj;
-  } : function (obj) {
-    return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-  }, _typeof(obj);
-}
-
 /***/ })
 
 /******/ 	});
@@ -11726,7 +11952,7 @@ function _typeof(obj) {
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = function(chunkId) {
 /******/ 			// return url for filenames based on template
-/******/ 			return "static/js/" + chunkId + "." + {"74":"3082e78a","105":"bd80febb","277":"3dc69ad5","429":"537a3941","697":"7c3e675d","747":"7753f953","821":"5ad4eb9e","830":"e8668833","907":"899e5e9c"}[chunkId] + ".chunk.js";
+/******/ 			return "static/js/" + chunkId + "." + {"74":"2ea9c3e8","277":"382f9db4","429":"acb7fc6b","625":"4e18a45b","697":"51d94bd9","747":"39c84c35","821":"254bd5c5","830":"e8668833","970":"e17c7605","981":"2967ca54"}[chunkId] + ".chunk.js";
 /******/ 		};
 /******/ 	}();
 /******/ 	
@@ -11735,7 +11961,7 @@ function _typeof(obj) {
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.miniCssF = function(chunkId) {
 /******/ 			// return url for filenames based on template
-/******/ 			return "static/css/" + chunkId + "." + {"277":"e7bf7ccd","697":"6c85ef92","821":"0083f532"}[chunkId] + ".chunk.css";
+/******/ 			return "static/css/" + chunkId + "." + {"277":"b5be4006","697":"6c85ef92","821":"0083f532"}[chunkId] + ".chunk.css";
 /******/ 		};
 /******/ 	}();
 /******/ 	
@@ -11977,436 +12203,20 @@ var __webpack_exports__ = {};
 
 // EXTERNAL MODULE: ./node_modules/react/index.js
 var react = __webpack_require__(2791);
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/classCallCheck.js
-var classCallCheck = __webpack_require__(5671);
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/createClass.js
-var createClass = __webpack_require__(3144);
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/inherits.js
-var inherits = __webpack_require__(136);
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/createSuper.js
-var createSuper = __webpack_require__(9388);
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/slicedToArray.js + 5 modules
 var slicedToArray = __webpack_require__(8152);
-// EXTERNAL MODULE: ./node_modules/history/index.js + 1 modules
-var node_modules_history = __webpack_require__(3368);
+// EXTERNAL MODULE: ./node_modules/react-router-dom/index.js
+var react_router_dom = __webpack_require__(3504);
 // EXTERNAL MODULE: ./node_modules/react-router/index.js
 var react_router = __webpack_require__(6871);
-;// CONCATENATED MODULE: ./node_modules/react-router-dom/index.js
-
-
-
-/**
- * React Router DOM v6.3.0
- *
- * Copyright (c) Remix Software Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.md file in the root directory of this source tree.
- *
- * @license MIT
- */
-
-
-
-
-
-function _extends() {
-  _extends = Object.assign || function (target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i];
-
-      for (var key in source) {
-        if (Object.prototype.hasOwnProperty.call(source, key)) {
-          target[key] = source[key];
-        }
-      }
-    }
-
-    return target;
-  };
-
-  return _extends.apply(this, arguments);
-}
-
-function _objectWithoutPropertiesLoose(source, excluded) {
-  if (source == null) return {};
-  var target = {};
-  var sourceKeys = Object.keys(source);
-  var key, i;
-
-  for (i = 0; i < sourceKeys.length; i++) {
-    key = sourceKeys[i];
-    if (excluded.indexOf(key) >= 0) continue;
-    target[key] = source[key];
-  }
-
-  return target;
-}
-
-var _excluded = (/* unused pure expression or super */ null && (["onClick", "reloadDocument", "replace", "state", "target", "to"])),
-    _excluded2 = (/* unused pure expression or super */ null && (["aria-current", "caseSensitive", "className", "end", "style", "to", "children"]));
-
-function warning(cond, message) {
-  if (!cond) {
-    // eslint-disable-next-line no-console
-    if (typeof console !== "undefined") console.warn(message);
-
-    try {
-      // Welcome to debugging React Router!
-      //
-      // This error is thrown as a convenience so you can more easily
-      // find the source for a warning that appears in the console by
-      // enabling "pause on exceptions" in your JavaScript debugger.
-      throw new Error(message); // eslint-disable-next-line no-empty
-    } catch (e) {}
-  }
-} ////////////////////////////////////////////////////////////////////////////////
-// COMPONENTS
-////////////////////////////////////////////////////////////////////////////////
-
-/**
- * A `<Router>` for use in web browsers. Provides the cleanest URLs.
- */
-
-
-function BrowserRouter(_ref) {
-  var basename = _ref.basename,
-      children = _ref.children,
-      window = _ref.window;
-  var historyRef = useRef();
-
-  if (historyRef.current == null) {
-    historyRef.current = createBrowserHistory({
-      window: window
-    });
-  }
-
-  var history = historyRef.current;
-
-  var _useState = useState({
-    action: history.action,
-    location: history.location
-  }),
-      _useState2 = _slicedToArray(_useState, 2),
-      state = _useState2[0],
-      setState = _useState2[1];
-
-  useLayoutEffect(function () {
-    return history.listen(setState);
-  }, [history]);
-  return /*#__PURE__*/createElement(Router, {
-    basename: basename,
-    children: children,
-    location: state.location,
-    navigationType: state.action,
-    navigator: history
-  });
-}
-/**
- * A `<Router>` for use in web browsers. Stores the location in the hash
- * portion of the URL so it is not sent to the server.
- */
-
-
-function HashRouter(_ref2) {
-  var basename = _ref2.basename,
-      children = _ref2.children,
-      window = _ref2.window;
-  var historyRef = (0,react.useRef)();
-
-  if (historyRef.current == null) {
-    historyRef.current = (0,node_modules_history/* createHashHistory */.q_)({
-      window: window
-    });
-  }
-
-  var history = historyRef.current;
-
-  var _useState3 = (0,react.useState)({
-    action: history.action,
-    location: history.location
-  }),
-      _useState4 = (0,slicedToArray/* default */.Z)(_useState3, 2),
-      state = _useState4[0],
-      setState = _useState4[1];
-
-  (0,react.useLayoutEffect)(function () {
-    return history.listen(setState);
-  }, [history]);
-  return /*#__PURE__*/(0,react.createElement)(react_router/* Router */.F0, {
-    basename: basename,
-    children: children,
-    location: state.location,
-    navigationType: state.action,
-    navigator: history
-  });
-}
-/**
- * A `<Router>` that accepts a pre-instantiated history object. It's important
- * to note that using your own history object is highly discouraged and may add
- * two versions of the history library to your bundles unless you use the same
- * version of the history library that React Router uses internally.
- */
-
-
-function HistoryRouter(_ref3) {
-  var basename = _ref3.basename,
-      children = _ref3.children,
-      history = _ref3.history;
-
-  var _useState5 = useState({
-    action: history.action,
-    location: history.location
-  }),
-      _useState6 = _slicedToArray(_useState5, 2),
-      state = _useState6[0],
-      setState = _useState6[1];
-
-  useLayoutEffect(function () {
-    return history.listen(setState);
-  }, [history]);
-  return /*#__PURE__*/createElement(Router, {
-    basename: basename,
-    children: children,
-    location: state.location,
-    navigationType: state.action,
-    navigator: history
-  });
-}
-
-if (false) {}
-
-function isModifiedEvent(event) {
-  return !!(event.metaKey || event.altKey || event.ctrlKey || event.shiftKey);
-}
-/**
- * The public API for rendering a history-aware <a>.
- */
-
-
-var Link = /*#__PURE__*/(/* unused pure expression or super */ null && (forwardRef(function LinkWithRef(_ref4, ref) {
-  var onClick = _ref4.onClick,
-      reloadDocument = _ref4.reloadDocument,
-      _ref4$replace = _ref4.replace,
-      replace = _ref4$replace === void 0 ? false : _ref4$replace,
-      state = _ref4.state,
-      target = _ref4.target,
-      to = _ref4.to,
-      rest = _objectWithoutPropertiesLoose(_ref4, _excluded);
-
-  var href = useHref(to);
-  var internalOnClick = useLinkClickHandler(to, {
-    replace: replace,
-    state: state,
-    target: target
-  });
-
-  function handleClick(event) {
-    if (onClick) onClick(event);
-
-    if (!event.defaultPrevented && !reloadDocument) {
-      internalOnClick(event);
-    }
-  }
-
-  return (
-    /*#__PURE__*/
-    // eslint-disable-next-line jsx-a11y/anchor-has-content
-    createElement("a", _extends({}, rest, {
-      href: href,
-      onClick: handleClick,
-      ref: ref,
-      target: target
-    }))
-  );
-})));
-
-if (false) {}
-/**
- * A <Link> wrapper that knows if it's "active" or not.
- */
-
-
-var NavLink = /*#__PURE__*/(/* unused pure expression or super */ null && (forwardRef(function NavLinkWithRef(_ref5, ref) {
-  var _ref5$ariaCurrent = _ref5["aria-current"],
-      ariaCurrentProp = _ref5$ariaCurrent === void 0 ? "page" : _ref5$ariaCurrent,
-      _ref5$caseSensitive = _ref5.caseSensitive,
-      caseSensitive = _ref5$caseSensitive === void 0 ? false : _ref5$caseSensitive,
-      _ref5$className = _ref5.className,
-      classNameProp = _ref5$className === void 0 ? "" : _ref5$className,
-      _ref5$end = _ref5.end,
-      end = _ref5$end === void 0 ? false : _ref5$end,
-      styleProp = _ref5.style,
-      to = _ref5.to,
-      children = _ref5.children,
-      rest = _objectWithoutPropertiesLoose(_ref5, _excluded2);
-
-  var location = useLocation();
-  var path = useResolvedPath(to);
-  var locationPathname = location.pathname;
-  var toPathname = path.pathname;
-
-  if (!caseSensitive) {
-    locationPathname = locationPathname.toLowerCase();
-    toPathname = toPathname.toLowerCase();
-  }
-
-  var isActive = locationPathname === toPathname || !end && locationPathname.startsWith(toPathname) && locationPathname.charAt(toPathname.length) === "/";
-  var ariaCurrent = isActive ? ariaCurrentProp : undefined;
-  var className;
-
-  if (typeof classNameProp === "function") {
-    className = classNameProp({
-      isActive: isActive
-    });
-  } else {
-    // If the className prop is not a function, we use a default `active`
-    // class for <NavLink />s that are active. In v5 `active` was the default
-    // value for `activeClassName`, but we are removing that API and can still
-    // use the old default behavior for a cleaner upgrade path and keep the
-    // simple styling rules working as they currently do.
-    className = [classNameProp, isActive ? "active" : null].filter(Boolean).join(" ");
-  }
-
-  var style = typeof styleProp === "function" ? styleProp({
-    isActive: isActive
-  }) : styleProp;
-  return /*#__PURE__*/createElement(Link, _extends({}, rest, {
-    "aria-current": ariaCurrent,
-    className: className,
-    ref: ref,
-    style: style,
-    to: to
-  }), typeof children === "function" ? children({
-    isActive: isActive
-  }) : children);
-})));
-
-if (false) {} ////////////////////////////////////////////////////////////////////////////////
-// HOOKS
-////////////////////////////////////////////////////////////////////////////////
-
-/**
- * Handles the click behavior for router `<Link>` components. This is useful if
- * you need to create custom `<Link>` components with the same click behavior we
- * use in our exported `<Link>`.
- */
-
-
-function useLinkClickHandler(to, _temp) {
-  var _ref6 = _temp === void 0 ? {} : _temp,
-      target = _ref6.target,
-      replaceProp = _ref6.replace,
-      state = _ref6.state;
-
-  var navigate = useNavigate();
-  var location = useLocation();
-  var path = useResolvedPath(to);
-  return useCallback(function (event) {
-    if (event.button === 0 && ( // Ignore everything but left clicks
-    !target || target === "_self") && // Let browser handle "target=_blank" etc.
-    !isModifiedEvent(event) // Ignore clicks with modifier keys
-    ) {
-      event.preventDefault(); // If the URL hasn't changed, a regular <a> will do a replace instead of
-      // a push, so do the same here.
-
-      var replace = !!replaceProp || createPath(location) === createPath(path);
-      navigate(to, {
-        replace: replace,
-        state: state
-      });
-    }
-  }, [location, navigate, path, replaceProp, state, target, to]);
-}
-/**
- * A convenient wrapper for reading and writing search parameters via the
- * URLSearchParams interface.
- */
-
-
-function useSearchParams(defaultInit) {
-   false ? 0 : void 0;
-  var defaultSearchParamsRef = useRef(createSearchParams(defaultInit));
-  var location = useLocation();
-  var searchParams = useMemo(function () {
-    var searchParams = createSearchParams(location.search);
-
-    var _iterator = _createForOfIteratorHelper(defaultSearchParamsRef.current.keys()),
-        _step;
-
-    try {
-      var _loop = function _loop() {
-        var key = _step.value;
-
-        if (!searchParams.has(key)) {
-          defaultSearchParamsRef.current.getAll(key).forEach(function (value) {
-            searchParams.append(key, value);
-          });
-        }
-      };
-
-      for (_iterator.s(); !(_step = _iterator.n()).done;) {
-        _loop();
-      }
-    } catch (err) {
-      _iterator.e(err);
-    } finally {
-      _iterator.f();
-    }
-
-    return searchParams;
-  }, [location.search]);
-  var navigate = useNavigate();
-  var setSearchParams = useCallback(function (nextInit, navigateOptions) {
-    navigate("?" + createSearchParams(nextInit), navigateOptions);
-  }, [navigate]);
-  return [searchParams, setSearchParams];
-}
-/**
- * Creates a URLSearchParams object using the given initializer.
- *
- * This is identical to `new URLSearchParams(init)` except it also
- * supports arrays as values in the object form of the initializer
- * instead of just strings. This is convenient when you need multiple
- * values for a given key, but don't want to use an array initializer.
- *
- * For example, instead of:
- *
- *   let searchParams = new URLSearchParams([
- *     ['sort', 'name'],
- *     ['sort', 'price']
- *   ]);
- *
- * you can do:
- *
- *   let searchParams = createSearchParams({
- *     sort: ['name', 'price']
- *   });
- */
-
-
-function createSearchParams(init) {
-  if (init === void 0) {
-    init = "";
-  }
-
-  return new URLSearchParams(typeof init === "string" || Array.isArray(init) || init instanceof URLSearchParams ? init : Object.keys(init).reduce(function (memo, key) {
-    var value = init[key];
-    return memo.concat(Array.isArray(value) ? value.map(function (v) {
-      return [key, v];
-    }) : [[key, value]]);
-  }, []));
-}
-
-
+// EXTERNAL MODULE: ./src/assets/gif/loading.gif
+var loading = __webpack_require__(1273);
 // EXTERNAL MODULE: ./node_modules/react/jsx-runtime.js
 var jsx_runtime = __webpack_require__(184);
+;// CONCATENATED MODULE: ./src/screens/loading/index.tsx
+function Loading(){return/*#__PURE__*/(0,jsx_runtime.jsxs)("div",{className:"flex flex-col items-center justify-center w-screen h-screen overflow-hidden bg-[#38375c]",children:[/*#__PURE__*/(0,jsx_runtime.jsxs)("div",{className:"my-12 text-white text-center",children:[/*#__PURE__*/(0,jsx_runtime.jsx)("h1",{className:"font-lexend text-5xl font-black",children:"Loading..."}),/*#__PURE__*/(0,jsx_runtime.jsx)("p",{className:"font-lexend mt-5",children:"Please wait while we are loading your data"})]}),/*#__PURE__*/(0,jsx_runtime.jsx)("div",{className:"w-[400px] h-[300px]",children:/*#__PURE__*/(0,jsx_runtime.jsx)("img",{src:loading,alt:"deco",className:"object-scale-down"})})]});}
 ;// CONCATENATED MODULE: ./src/App.tsx
-// import Popup from "@/screens/popup/index";
-// import Splash from "./screens/splash";
-// import SplashStart from "./screens/splash/pages/start";
-// import SplashFinish from "./screens/splash/pages/finish";
-var Popup=/*#__PURE__*/react.lazy(function(){return Promise.all(/* import() */[__webpack_require__.e(105), __webpack_require__.e(830), __webpack_require__.e(429), __webpack_require__.e(697)]).then(__webpack_require__.bind(__webpack_require__, 5759));});var Splash=/*#__PURE__*/react.lazy(function(){return __webpack_require__.e(/* import() */ 277).then(__webpack_require__.bind(__webpack_require__, 277));});var SplashStart=/*#__PURE__*/react.lazy(function(){return Promise.all(/* import() */[__webpack_require__.e(105), __webpack_require__.e(429), __webpack_require__.e(821)]).then(__webpack_require__.bind(__webpack_require__, 6045));});var SplashFinish=/*#__PURE__*/react.lazy(function(){return __webpack_require__.e(/* import() */ 747).then(__webpack_require__.bind(__webpack_require__, 9747));});var NewTab=/*#__PURE__*/react.lazy(function(){return __webpack_require__.e(/* import() */ 74).then(__webpack_require__.bind(__webpack_require__, 3074));});var Options=/*#__PURE__*/react.lazy(function(){return __webpack_require__.e(/* import() */ 907).then(__webpack_require__.bind(__webpack_require__, 9907));});var App=/*#__PURE__*/function(_React$Component){(0,inherits/* default */.Z)(App,_React$Component);var _super=(0,createSuper/* default */.Z)(App);function App(){(0,classCallCheck/* default */.Z)(this,App);return _super.apply(this,arguments);}(0,createClass/* default */.Z)(App,[{key:"render",value:function render(){return/*#__PURE__*/(0,jsx_runtime.jsx)(HashRouter,{children:/*#__PURE__*/(0,jsx_runtime.jsxs)(react_router/* Routes */.Z5,{children:[/*#__PURE__*/(0,jsx_runtime.jsx)(react_router/* Route */.AW,{path:"/",element:/*#__PURE__*/(0,jsx_runtime.jsx)(Popup,{})}),/*#__PURE__*/(0,jsx_runtime.jsxs)(react_router/* Route */.AW,{path:"splash",element:/*#__PURE__*/(0,jsx_runtime.jsx)(Splash,{}),children:[/*#__PURE__*/(0,jsx_runtime.jsx)(react_router/* Route */.AW,{index:true,element:/*#__PURE__*/(0,jsx_runtime.jsx)(SplashStart,{})}),/*#__PURE__*/(0,jsx_runtime.jsx)(react_router/* Route */.AW,{path:"finish",element:/*#__PURE__*/(0,jsx_runtime.jsx)(SplashFinish,{})})]}),/*#__PURE__*/(0,jsx_runtime.jsx)(react_router/* Route */.AW,{path:"/newtab",element:/*#__PURE__*/(0,jsx_runtime.jsx)(NewTab,{})}),/*#__PURE__*/(0,jsx_runtime.jsx)(react_router/* Route */.AW,{path:"/options",element:/*#__PURE__*/(0,jsx_runtime.jsx)(Options,{})})]})});}}]);return App;}(react.Component);
+var Popup=/*#__PURE__*/react.lazy(function(){return Promise.all(/* import() */[__webpack_require__.e(625), __webpack_require__.e(830), __webpack_require__.e(429), __webpack_require__.e(697)]).then(__webpack_require__.bind(__webpack_require__, 5759));});var Splash=/*#__PURE__*/react.lazy(function(){return __webpack_require__.e(/* import() */ 277).then(__webpack_require__.bind(__webpack_require__, 277));});var SplashStart=/*#__PURE__*/react.lazy(function(){return Promise.all(/* import() */[__webpack_require__.e(625), __webpack_require__.e(429), __webpack_require__.e(821)]).then(__webpack_require__.bind(__webpack_require__, 6045));});var SplashFinish=/*#__PURE__*/react.lazy(function(){return __webpack_require__.e(/* import() */ 747).then(__webpack_require__.bind(__webpack_require__, 9747));});var NewTab=/*#__PURE__*/react.lazy(function(){return __webpack_require__.e(/* import() */ 74).then(__webpack_require__.bind(__webpack_require__, 3074));});var Options=/*#__PURE__*/react.lazy(function(){return __webpack_require__.e(/* import() */ 981).then(__webpack_require__.bind(__webpack_require__, 5981));});var Countdown=/*#__PURE__*/react.lazy(function(){return __webpack_require__.e(/* import() */ 970).then(__webpack_require__.bind(__webpack_require__, 970));});function Wrapper(){var location=(0,react_router/* useLocation */.TH)();var _useState=(0,react.useState)(location),_useState2=(0,slicedToArray/* default */.Z)(_useState,2),displayLocation=_useState2[0],setDisplayLocation=_useState2[1];var _useState3=(0,react.useState)("fadeIn"),_useState4=(0,slicedToArray/* default */.Z)(_useState3,2),transitionStage=_useState4[0],setTransitionStage=_useState4[1];(0,react.useEffect)(function(){if(location!==displayLocation)setTransitionStage("fadeOut");},[location]);return/*#__PURE__*/(0,jsx_runtime.jsx)("div",{className:"".concat(transitionStage),onAnimationEnd:function onAnimationEnd(){if(transitionStage==="fadeOut"){setTransitionStage("fadeIn");setDisplayLocation(location);}},children:/*#__PURE__*/(0,jsx_runtime.jsx)(react.Suspense,{fallback:/*#__PURE__*/(0,jsx_runtime.jsx)(Loading,{}),children:/*#__PURE__*/(0,jsx_runtime.jsxs)(react_router/* Routes */.Z5,{location:displayLocation,children:[/*#__PURE__*/(0,jsx_runtime.jsx)(react_router/* Route */.AW,{path:"/loading",element:/*#__PURE__*/(0,jsx_runtime.jsx)(Loading,{})}),/*#__PURE__*/(0,jsx_runtime.jsx)(react_router/* Route */.AW,{path:"/",element:/*#__PURE__*/(0,jsx_runtime.jsx)(Popup,{})}),/*#__PURE__*/(0,jsx_runtime.jsxs)(react_router/* Route */.AW,{path:"splash",element:/*#__PURE__*/(0,jsx_runtime.jsx)(Splash,{}),children:[/*#__PURE__*/(0,jsx_runtime.jsx)(react_router/* Route */.AW,{index:true,element:/*#__PURE__*/(0,jsx_runtime.jsx)(SplashStart,{})}),/*#__PURE__*/(0,jsx_runtime.jsx)(react_router/* Route */.AW,{path:"finish",element:/*#__PURE__*/(0,jsx_runtime.jsx)(SplashFinish,{})})]}),/*#__PURE__*/(0,jsx_runtime.jsx)(react_router/* Route */.AW,{path:"/newtab",element:/*#__PURE__*/(0,jsx_runtime.jsx)(NewTab,{})}),/*#__PURE__*/(0,jsx_runtime.jsxs)(react_router/* Route */.AW,{path:"options",element:/*#__PURE__*/(0,jsx_runtime.jsx)(Options,{}),children:[/*#__PURE__*/(0,jsx_runtime.jsx)(react_router/* Route */.AW,{index:true,element:/*#__PURE__*/(0,jsx_runtime.jsx)(Countdown,{})}),/*#__PURE__*/(0,jsx_runtime.jsx)(react_router/* Route */.AW,{path:"notifications",element:/*#__PURE__*/(0,jsx_runtime.jsx)("div",{children:"Notifications"})})]})]},location.pathname)})});}function App(){return/*#__PURE__*/(0,jsx_runtime.jsx)(react_router_dom/* HashRouter */.UT,{children:/*#__PURE__*/(0,jsx_runtime.jsx)(Wrapper,{})});}
 ;// CONCATENATED MODULE: ./src/styles/index.scss
 // extracted by mini-css-extract-plugin
 /* harmony default export */ var styles = ({});
@@ -12417,4 +12227,4 @@ var container=document.getElementById('root');var root=(0,client/* createRoot */
 }();
 /******/ })()
 ;
-//# sourceMappingURL=main.0866b27d.js.map
+//# sourceMappingURL=main.a2c60c41.js.map

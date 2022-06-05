@@ -1763,7 +1763,7 @@ countBy:"0",background:BackgroundImageList[0],textColor:"#ffffff",yearBornID:"yb
 * Get absolute URL from relative URL
 * @param relativeURL: The relative URL
 * @returns {string}: The absolute URL
-*/function getAbsoluteURL(relativeURL){console.log("development");var isProduction="development"=="production";var BaseDir=isProduction?"https://raw.githubusercontent.com/NghiaCaNgao/CDU_2/main":"https://raw.githubusercontent.com/NghiaCaNgao/CDU_2/splashscreen";return BaseDir+relativeURL;}
+*/function getAbsoluteURL(relativeURL){console.log("development");var isProduction="development"=="production";var BaseDir=isProduction?"https://raw.githubusercontent.com/NghiaCaNgao/CDU_2/main":"https://raw.githubusercontent.com/NghiaCaNgao/CDU_2/dev";return BaseDir+relativeURL;}
 ;// CONCATENATED MODULE: ./src/api/getTime.ts
 var Host=getAbsoluteURL("/data/data.json");var DEFAULT_TIME=Date.now()+1000*60*60*24*7;// 1 week from now
 /* Get finish time from server

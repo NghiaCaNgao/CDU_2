@@ -1,7 +1,14 @@
 import React from "react";
 
 export default class FinishPage extends React.Component {
+    constructor(props: any) {
+        super(props);
+        console.log("Hello from FinishPage constructor");
+        
+    }
     render() {
+        // console.log("Hello from FinishPage");
+        
         return (
             <div className="flex flex-col items-center w-full h-full">
                 <div className="my-12">

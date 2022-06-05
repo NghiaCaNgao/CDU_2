@@ -300,7 +300,7 @@ countBy:"0",background:_screens_popup_components_SelectBackground__WEBPACK_IMPOR
 * Get absolute URL from relative URL
 * @param relativeURL: The relative URL
 * @returns {string}: The absolute URL
-*/function getAbsoluteURL(relativeURL){console.log("development");var isProduction="development"=="production";var BaseDir=isProduction?"https://raw.githubusercontent.com/NghiaCaNgao/CDU_2/main":"https://raw.githubusercontent.com/NghiaCaNgao/CDU_2/splashscreen";return BaseDir+relativeURL;}
+*/function getAbsoluteURL(relativeURL){console.log("development");var isProduction="development"=="production";var BaseDir=isProduction?"https://raw.githubusercontent.com/NghiaCaNgao/CDU_2/main":"https://raw.githubusercontent.com/NghiaCaNgao/CDU_2/dev";return BaseDir+relativeURL;}
 
 /***/ }),
 
@@ -466,4 +466,4 @@ if(this.ref.current&&!this.ref.current.contains(event.target)){this.setShowState
 /***/ })
 
 }]);
-//# sourceMappingURL=429.537a3941.chunk.js.map
+//# sourceMappingURL=429.acb7fc6b.chunk.js.map

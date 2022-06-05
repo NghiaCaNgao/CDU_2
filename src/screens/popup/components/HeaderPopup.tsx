@@ -71,19 +71,20 @@ export default class HeaderPopup extends React.Component<IProps, IState> {
     render() {
         return (
             <div className="p-5 py-0 relative" ref={this.ref}>
-                <div className="flex items-center justify-between relative z-50">
+                <div className={"flex items-center justify-between relative z-50 transition-all " +
+                    (this.state.isVisibleNotification ? "mt-2" : "")}>
                     <h1 className="text-xl font-lexend font-black text-violet-pastel">Countdown2uni</h1>
                     <div className="flex">
                         <ButtonIcon icon={<RestoreIcon />} id="btn-restore" onClick={this.restoreData.bind(this)} />
                         <ButtonIcon icon={<BellIcon />} id="btn-notification" onClick={this.toggleVisibleNotification.bind(this)} />
-                        <LinkIcon icon={<SettingsIcon />} id="btn-settings" to="#/settings" />
+                        <LinkIcon icon={<SettingsIcon />} id="btn-settings" to="#/options" />
                     </div>
                 </div>
 
                 <div className={
-                    "notification bg-white rounded-2xl w-full p-3 absolute top-0 left-0 shadow-2xl transition-all " +
+                    "notification bg-white rounded-2xl w-full p-3 absolute -top-2 left-0 shadow-2xl transition-all " +
                     ((this.state.isVisibleNotification) ? "opacity-100 z-40" : "opacity-0 z-0")}>
-                    <div className="h-16"></div>
+                    <div className="h-10"></div>
                     {this.state.notifications.map((noti, index) => {
                         return <NotiItem key={index} title={noti.title} type={noti.type} description={noti.description} />
                     })}

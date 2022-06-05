@@ -32,7 +32,7 @@ export function getAbsoluteURL(relativeURL: string): string {
 
     const BaseDir = (isProduction)
         ? "https://raw.githubusercontent.com/NghiaCaNgao/CDU_2/main"
-        : "https://raw.githubusercontent.com/NghiaCaNgao/CDU_2/splashscreen";
+        : "https://raw.githubusercontent.com/NghiaCaNgao/CDU_2/dev";
 
     return BaseDir + relativeURL;
 }

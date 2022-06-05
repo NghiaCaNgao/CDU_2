@@ -11,6 +11,9 @@
             "@/*": [
                 "./src/*"
             ],
+            "@assets/*": [
+                "./src/assets/*"
+            ],
         },
         "jsx": "react",
         "allowJs": false
